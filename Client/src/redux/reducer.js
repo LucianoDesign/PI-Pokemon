@@ -12,12 +12,12 @@ import {
 const initialState = {
   pokemons: [],
   filteredPokemons: [],
+  currentPokemon: [],
   currentPage: 1,
   totalPages: 0,
   pokemonsPerPage: 12,
   sortOrder: "",
   types: [],
-  currentPokemon: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -37,15 +37,26 @@ const rootReducer = (state = initialState, action) => {
         types: types,
       };
     case SET_POKEMON_NAME:
-      return {
-        ...state,
-        currentPokemon: action.payload,
+      const newPokemon = action.payload;
+
+      const isDuplicate = state.currentPokemon.find(
+        (pokemon) => pokemon.id === newPokemon.id
+      );
+      if (isDuplicate) {
+        return state;
+      } else {
+        
+        return {
+          ...state,
+          currentPokemon: [...state.currentPokemon, newPokemon],
+         }  
+
       };
     
     case RESET_CURRENT_POKEMON:
       return {
         ...state,
-        currentPokemon: null,
+        currentPokemon: [],
       };
 
     case CHANGE_PAGE:
@@ -58,18 +69,21 @@ const rootReducer = (state = initialState, action) => {
         const { sortOrder } = action.payload;
         let sortedPokemons = [...state.pokemons];
         let sortedFilteredPokemons = [...state.filteredPokemons];
+        let sortedCurrentPokemons = [...state.currentPokemon];
+        
       
         const sortByProperty = (property, ascending) => {
           const compareFunction = (a, b) => {
-            if (ascending) {
-              return a[property] - b[property];
-            } else {
-              return b[property] - a[property];
-            }
-          };
+  if (typeof a[property] === 'string' && typeof b[property] === 'string') {
+    return ascending ? a[property].localeCompare(b[property]) : b[property].localeCompare(a[property]);
+  } else {
+    return ascending ? a[property] - b[property] : b[property] - a[property];
+  }
+};
       
           sortedPokemons.sort(compareFunction);
           sortedFilteredPokemons.sort(compareFunction);
+          sortedCurrentPokemons.sort(compareFunction);
         };
       
         switch (sortOrder) {
@@ -94,9 +108,10 @@ const rootReducer = (state = initialState, action) => {
           default:
             break;
         }
-      
         return {
+          
           ...state,
+          currentPokemon: sortedCurrentPokemons,
           pokemons: sortedPokemons,
           filteredPokemons: sortedFilteredPokemons,
           sortOrder,

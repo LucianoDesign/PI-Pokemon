@@ -9,7 +9,6 @@ const SearchBar = () => {
 
     const dispatch = useDispatch();
     const [searchQuery, setSearchQuery] = useState("");
-    console.log(searchQuery)
 
     const handleSearch = () => {
         if (!searchQuery || searchQuery.trim() === "") {

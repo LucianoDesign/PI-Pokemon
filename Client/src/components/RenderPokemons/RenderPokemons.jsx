@@ -11,8 +11,8 @@ const RenderPokemons = () => {
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
 
-  const displayedPokemons = currentPokemon
-    ? [currentPokemon]
+  const displayedPokemons = (currentPokemon.length > 0)
+    ? currentPokemon
     : filteredPokemons.length > 0
     ? filteredPokemons
     : pokemons;

@@ -21,7 +21,7 @@ const Pagination = () => {
     dispatch(resetCurrentPokemon());
   };
 
-  if (currentPokemon) {
+  if (currentPokemon.length > 0) {
     return (
       <div className={styles.pagination}>
         <button onClick={handleGoBack}>Back</button>
