@@ -1,18 +1,20 @@
-import { useSelector } from "react-redux";
+import { useSelector} from "react-redux";
+
 import Card from "../Card/Card";
 
 const RenderPokemons = () => {
-  const currentPokemon = useSelector((state) => state.currentPokemon);
+  const pokemonByName = useSelector((state) => state.pokemonByName);
   const pokemons = useSelector((state) => state.pokemons);
   const filteredPokemons = useSelector((state) => state.filteredPokemons);
   const currentPage = useSelector((state) => state.currentPage);
   const pokemonsPerPage = useSelector((state) => state.pokemonsPerPage);
+  
 
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
 
-  const displayedPokemons = (currentPokemon.length > 0)
-    ? currentPokemon
+  const displayedPokemons = (pokemonByName.length > 0)
+    ? pokemonByName
     : filteredPokemons.length > 0
     ? filteredPokemons
     : pokemons;

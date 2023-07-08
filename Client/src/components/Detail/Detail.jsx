@@ -54,7 +54,7 @@ const Detail = () => {
       <h3>HP: {pokemon.hp}</h3>
       <h3>Speed: {pokemon.speed}</h3>
       <h3>Attack: {pokemon.attack}</h3>
-      <h3>Defense</h3>
+      <h3>Defense {pokemon.defense}</h3>
       <h3>Height: {pokemon.height}</h3>
       <h3>Weight: {pokemon.weight}</h3>
       <h4>Type:</h4>

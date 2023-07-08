@@ -1,30 +1,33 @@
-import React from "react";
 import styles from "./Pagination.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { changePage, resetCurrentPokemon } from "../../redux/actions";
+import { changePage, resetpokemonByName } from "../../redux/actions";
 
 const Pagination = () => {
   const dispatch = useDispatch();
   const currentPage = useSelector((state) => state.currentPage);
   const totalPages = useSelector((state) => state.totalPages);
-  const currentPokemon = useSelector((state) => state.currentPokemon)
+  const pokemonByName = useSelector((state) => state.pokemonByName)
+  
+  
   const pageNumbers = Array.from(
     { length: totalPages },
     (_, index) => index + 1
   );
+  
 
   const handlePageChange = (page) => {
     dispatch(changePage(page));
   };
   
-  const handleGoBack = () => {
-    dispatch(resetCurrentPokemon());
+  const handleReset = () => {
+    dispatch(resetpokemonByName());
   };
 
-  if (currentPokemon.length > 0) {
+  if (pokemonByName.length > 0) {
     return (
       <div className={styles.pagination}>
-        <button onClick={handleGoBack}>Back</button>
+        <button onClick={handleReset}>Reset</button>
+        
       </div>
     );
   }

@@ -6,7 +6,7 @@ const Card = (props) => {
 
   return (
     <div className={styles.divCardContainer}>
-      <Link to={`/detail/${id}`} className="Link">
+      <Link to={`detail/${id}`} className="Link">
         <h4>{name}</h4>
       </Link>
       <img src={image} alt={name} />

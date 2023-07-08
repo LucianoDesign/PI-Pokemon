@@ -1,6 +1,6 @@
 const PathRoutes = {
     HOME: '/home',
-    DETAIL: '/detail/:id',
+    DETAIL: '/:section/detail/:id',
     FORM: '/form'
 }
 

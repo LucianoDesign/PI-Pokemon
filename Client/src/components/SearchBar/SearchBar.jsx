@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
     loadPokemonName,
-    resetCurrentPokemon,
+    resetpokemonByName,
   } from "../../redux/actions";
 
 const SearchBar = () => {
@@ -12,11 +12,16 @@ const SearchBar = () => {
 
     const handleSearch = () => {
         if (!searchQuery || searchQuery.trim() === "") {
-          dispatch(resetCurrentPokemon());
+          dispatch(resetpokemonByName());
         } else {
           dispatch(loadPokemonName(searchQuery));
         }
         setSearchQuery("");
+      };
+    const handleKeyDown = (e) => {
+        if (e.keyCode === 13) {
+          handleSearch();
+        }
       };
   return (
     <div>
@@ -24,6 +29,7 @@ const SearchBar = () => {
         type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
+        onKeyDown={handleKeyDown}
       />
       <button onClick={handleSearch}>Buscar</button>
     </div>

@@ -1,18 +1,18 @@
 import {
   LOAD_POKEMONS,
-  CHANGE_PAGE,
   SORT_POKEMONS,
+  CHANGE_PAGE,
   LOAD_TYPES,
   SET_POKEMON_NAME,
-  RESET_CURRENT_POKEMON,
+  RESET_POKEMON_BY_NAME,
   FILTER_POKEMONS_BY_TYPE,
   RESET_FILTERED_POKEMONS,
-} from "./actions";
+} from "./actionTypes";
 
 const initialState = {
   pokemons: [],
   filteredPokemons: [],
-  currentPokemon: [],
+  pokemonByName: [],
   currentPage: 1,
   totalPages: 0,
   pokemonsPerPage: 12,
@@ -39,24 +39,26 @@ const rootReducer = (state = initialState, action) => {
     case SET_POKEMON_NAME:
       const newPokemon = action.payload;
 
-      const isDuplicate = state.currentPokemon.find(
+      const isDuplicate = state.pokemonByName.find(
         (pokemon) => pokemon.id === newPokemon.id
       );
       if (isDuplicate) {
         return state;
       } else {
-        
         return {
           ...state,
-          currentPokemon: [...state.currentPokemon, newPokemon],
-         }  
+          pokemonByName: [...state.pokemonByName, newPokemon],
+          currentPage: 1,
+          pokemonsPerPage: 50
+        };
+      }
 
-      };
-    
-    case RESET_CURRENT_POKEMON:
+    case RESET_POKEMON_BY_NAME:
       return {
         ...state,
-        currentPokemon: [],
+        pokemonByName: [],
+        pokemonsPerPage: 12
+        
       };
 
     case CHANGE_PAGE:
@@ -65,66 +67,73 @@ const rootReducer = (state = initialState, action) => {
         currentPage: action.payload,
       };
 
-      case SORT_POKEMONS:
-        const { sortOrder } = action.payload;
-        let sortedPokemons = [...state.pokemons];
-        let sortedFilteredPokemons = [...state.filteredPokemons];
-        let sortedCurrentPokemons = [...state.currentPokemon];
-        
-      
-        const sortByProperty = (property, ascending) => {
-          const compareFunction = (a, b) => {
-  if (typeof a[property] === 'string' && typeof b[property] === 'string') {
-    return ascending ? a[property].localeCompare(b[property]) : b[property].localeCompare(a[property]);
-  } else {
-    return ascending ? a[property] - b[property] : b[property] - a[property];
-  }
-};
-      
-          sortedPokemons.sort(compareFunction);
-          sortedFilteredPokemons.sort(compareFunction);
-          sortedCurrentPokemons.sort(compareFunction);
+    case SORT_POKEMONS:
+      const { sortOrder } = action.payload;
+      let sortedPokemons = [...state.pokemons];
+      let sortedFilteredPokemons = [...state.filteredPokemons];
+      let sortedpokemonByNames = [...state.pokemonByName];
+
+      const sortByProperty = (property, order) => {
+        const compareFunction = (a, b) => {
+          if (
+            typeof a[property] === "string" &&
+            typeof b[property] === "string"
+          ) {
+            return order
+              ? a[property].localeCompare(b[property])
+              : b[property].localeCompare(a[property]);
+          } else {
+            return order
+              ? a[property] - b[property]
+              : b[property] - a[property];
+          }
         };
-      
-        switch (sortOrder) {
-          case "asc":
-            sortByProperty("name", true);
-            break;
-          case "desc":
-            sortByProperty("name", false);
-            break;
-          case "asc_id":
-            sortByProperty("id", true);
-            break;
-          case "desc_id":
-            sortByProperty("id", false);
-            break;
-          case "asc_attack":
-            sortByProperty("attack", true);
-            break;
-          case "desc_attack":
-            sortByProperty("attack", false);
-            break;
-          default:
-            break;
-        }
-        return {
-          
-          ...state,
-          currentPokemon: sortedCurrentPokemons,
-          pokemons: sortedPokemons,
-          filteredPokemons: sortedFilteredPokemons,
-          sortOrder,
-        };
+
+        sortedPokemons.sort(compareFunction);
+        sortedFilteredPokemons.sort(compareFunction);
+        sortedpokemonByNames.sort(compareFunction);
+      };
+
+      switch (sortOrder) {
+        case "asc":
+          sortByProperty("name", true);
+          break;
+        case "desc":
+          sortByProperty("name", false);
+          break;
+        case "asc_id":
+          sortByProperty("id", true);
+          break;
+        case "desc_id":
+          sortByProperty("id", false);
+          break;
+        case "asc_attack":
+          sortByProperty("attack", true);
+          break;
+        case "desc_attack":
+          sortByProperty("attack", false);
+          break;
+        default:
+          break;
+      }
+      return {
+        ...state,
+        pokemonByName: sortedpokemonByNames,
+        pokemons: sortedPokemons,
+        filteredPokemons: sortedFilteredPokemons,
+        sortOrder,
+      };
 
     case FILTER_POKEMONS_BY_TYPE:
       const selectedTypes = action.payload;
-      
+
       const filteredPokemons = state.pokemons.filter((pokemon) => {
-        return selectedTypes.every(type =>(pokemon.type.includes(type)));
+        return selectedTypes.every((type) => pokemon.type.includes(type));
       });
-      const TotalSortPages = Math.ceil(filteredPokemons.length / state.pokemonsPerPage)
-      
+
+      const TotalSortPages = Math.ceil(
+        filteredPokemons.length / state.pokemonsPerPage
+      );
       return {
         ...state,
         filteredPokemons: filteredPokemons,

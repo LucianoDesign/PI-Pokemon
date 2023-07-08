@@ -1,22 +1,30 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import styles from "./Home.module.css";
+/* *********************  HOOKS  *********************** */
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+/* *********************  ACTIONS *********************** */
 import { loadPokemons, loadPokemonTypes } from "../../redux/actions";
+/* *********************  COMPONENTS  *********************** */
 import Pagination from "../Pagination/Pagination";
 import RenderPokemons from "../RenderPokemons/renderPokemons";
 import FilterByType from "../FilterByType/FilterByType";
-
 import SearchBar from "../searchBar/searchBar";
 import SortByProperty from "../SortByProperty/SortByProperty";
 
-import styles from "./Home.module.css";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const pokemonsLoaded = useSelector((state) => state.pokemons.length > 0);
+  const pokemonTypesLoaded = useSelector((state) => state.types.length > 0);
 
   useEffect(() => {
-    dispatch(loadPokemons());
-    dispatch(loadPokemonTypes());
-  }, []);
+    if (!pokemonsLoaded) {
+      dispatch(loadPokemons());
+    }
+    if (!pokemonTypesLoaded) {
+      dispatch(loadPokemonTypes());
+    }
+  }, [dispatch, pokemonsLoaded, pokemonTypesLoaded]);
 
   return (
     <div>
