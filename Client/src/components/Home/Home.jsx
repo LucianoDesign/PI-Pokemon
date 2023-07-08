@@ -24,7 +24,7 @@ const Home = () => {
     if (!pokemonTypesLoaded) {
       dispatch(loadPokemonTypes());
     }
-  }, [dispatch, pokemonsLoaded, pokemonTypesLoaded]);
+  }, []);
 
   return (
     <div>

@@ -35,10 +35,16 @@ const FilterByType = () => {
   const handleTypeChange = (e) => {
     const { value, checked } = e.target;
     if (checked) {
-      setSelectedTypes((preSelectedTypes) => [...preSelectedTypes, value]); /* Setting types of pokemons */
+      setSelectedTypes((preSelectedTypes) => [
+        ...preSelectedTypes,
+        value,
+      ]); /* Setting types of pokemons */
     } else {
-      setSelectedTypes((preSelectedTypes) =>
-        preSelectedTypes.filter((type) => type !== value) /* unsetting types of pokemons */
+      setSelectedTypes(
+        (preSelectedTypes) =>
+          preSelectedTypes.filter(
+            (type) => type !== value
+          ) /* unsetting types of pokemons */
       );
     }
     setShouldResetFiltered(!checked);
