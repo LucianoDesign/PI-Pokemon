@@ -1,7 +1,7 @@
 const PathRoutes = {
     HOME: '/home',
     DETAIL: '/:section/detail/:id',
-    FORM: '/form'
+    FORM: '/home/form'
 }
 
 export default PathRoutes;

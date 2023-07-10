@@ -28,6 +28,9 @@ const Home = () => {
 
   return (
     <div>
+      <SearchBar />
+      <SortByProperty />
+      <FilterByType />
       <div className={styles.divHomeContent}>
         <RenderPokemons />
       </div>
@@ -35,10 +38,7 @@ const Home = () => {
         <Pagination />
       </div>
 
-      <SortByProperty />
-      <SearchBar />
 
-      <FilterByType />
     </div>
   );
 };
