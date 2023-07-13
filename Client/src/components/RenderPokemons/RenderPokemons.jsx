@@ -1,4 +1,5 @@
 import { useSelector} from "react-redux";
+import styles from "./renderPokemons.module.css"
 
 import Card from "../Card/Card";
 
@@ -8,16 +9,27 @@ const RenderPokemons = () => {
   const filteredPokemons = useSelector((state) => state.filteredPokemons);
   const currentPage = useSelector((state) => state.currentPage);
   const pokemonsPerPage = useSelector((state) => state.pokemonsPerPage);
+  const selectedTypes = useSelector((state) => state.selectedTypes);
   
 
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
 
-  const displayedPokemons = (pokemonByName.length > 0)
-    ? pokemonByName
-    : filteredPokemons.length > 0
-    ? filteredPokemons
-    : pokemons;
+  const displayedPokemons = (() => {
+    if (pokemonByName.length > 0) {
+      return pokemonByName;
+    } else if (filteredPokemons.length > 0) {
+      return filteredPokemons;
+    } else if (selectedTypes.length > 0 && filteredPokemons.length === 0) {
+      return null; // No hay pokemones filtrados
+    } else {
+      return pokemons;
+    }
+  })();
+
+  if (!displayedPokemons) {
+    return <h1 className={styles.noMatch}>No match for pokemons</h1>;
+  }
 
   const paginatedPokemons = displayedPokemons.slice(
     indexOfFirstPokemon,

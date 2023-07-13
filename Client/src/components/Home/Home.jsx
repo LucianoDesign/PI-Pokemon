@@ -11,7 +11,6 @@ import FilterByType from "../FilterByType/FilterByType";
 import SearchBar from "../searchBar/searchBar";
 import SortByProperty from "../SortByProperty/SortByProperty";
 
-
 const Home = () => {
   const dispatch = useDispatch();
   const pokemonsLoaded = useSelector((state) => state.pokemons.length > 0);
@@ -27,18 +26,18 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className={styles.divHomeContent}>
       <SearchBar />
       <SortByProperty />
-      <FilterByType />
-      <div className={styles.divHomeContent}>
-        <RenderPokemons />
+      <div className={styles.divRenderPokeContent}>
+        <FilterByType />
+        <div className={styles.divRenderPoke}>
+          <RenderPokemons />
+        </div>
       </div>
-      <div className={styles.pagination}>
+      
         <Pagination />
-      </div>
-
-
+      
     </div>
   );
 };

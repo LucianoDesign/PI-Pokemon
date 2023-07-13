@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { validateName, validateImage, validateStats } from "./validations";
+import { postPokemon } from "../../redux/actions";
+import styles from './Form.module.css'
 
 const Form = () => {
-
+  const dispatch = useDispatch();
   const pokemonTypes = useSelector((state) => state.types);
+  const [imageUrl, setImageUrl] = useState("");
   const [pokemonData, setPokemonData] = useState({
-    name: '',
-    image: '',
-    life: 0,
+    name: "",
+    image: "",
+    hp: 0,
     attack: 0,
     defense: 0,
     speed: 0,
@@ -15,146 +19,220 @@ const Form = () => {
     weight: 0,
     types: [],
   });
-  console.log(pokemonTypes)
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const [errors, setErrors] = useState({
+    name: "",
+    image: "",
+    hp: "",
+    attack: "",
+    defense: "",
+    speed: "",
+    height: "",
+    weight: "",
+    types: "",
+  });
+
+  
+  
+ 
+  const handleChange = async (event) => {
+    const property = event.target.name;
+    const value = event.target.value;
+    
     setPokemonData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [property]: value,
     }));
+
+    if(property === "name") {
+      setErrors({ ...errors, name: validateName(value)});
+    }
+    if (property === "image") {
+      
+      try {
+        await validateImage(value);
+        setErrors({ ...errors, image: "" }); 
+      } catch (error) {
+        setErrors({ ...errors, image: error }); 
+      }
+      setImageUrl(value);
+    }
+    if (property === "hp") {
+      setErrors({...errors, hp: validateStats(value , property)});
+    }
+    if (property === "attack") {
+      setErrors({...errors, attack: validateStats(value , property)});
+    }
+    if (property === "defense") {
+      setErrors({...errors, defense: validateStats(value , property)});
+    }
+    if (property === "speed") {
+      setErrors({...errors, speed: validateStats(value , property)});
+    }
+    if (property === "height") {
+      setErrors({...errors, height: validateStats(value , property)});
+    }
+    if (property === "weight") {
+      setErrors({...errors, weight: validateStats(value , property)});
+    }
   };
 
+
+
   const handleTypeChange = (e) => {
-    const { value, checked } = e.target;
-    if (checked) {
+    let { name, value } = e.target;
+    if (value === '') value = undefined;
+    if (name === "type1") {
       setPokemonData((prevData) => ({
         ...prevData,
-        types: [...prevData.types, value],
+        types: [prevData.types[0], value],
       }));
-    } else {
+    } 
+   if (name === "type2") {
       setPokemonData((prevData) => ({
         ...prevData,
-        types: prevData.types.filter((type) => type !== value),
+        types: [prevData.types[1], value],
       }));
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes realizar la lógica para enviar los datos del nuevo pokemon
-    // a través de una acción de Redux, una solicitud HTTP, etc.
-    console.log(pokemonData);
-    // Aquí puedes realizar las validaciones necesarias antes de enviar los datos
-    // por ejemplo, validar que los campos requeridos no estén vacíos, que los valores
-    // sean numéricos, etc.
+    console.log(pokemonData)
+    const emptyField = Object.values(pokemonData).some((data) => data === "");
+    if(emptyField) {
+      window.alert("All fields must be completed");
+      return
+    }
+    const hasErrors = Object.values(errors).some((error) => error !== "");
+    if(hasErrors) {
+      window.alert("Wrong data, try again");
+      return
+    }
+    dispatch(postPokemon(pokemonData));
+    window.alert("pokemon created")
+    
   };
 
   return (
-    <div>
+    <div className={styles.FormBox}>
       <h2>Create a new Pokemon</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Name:</label>
           <input
-            type="text"
             id="name"
             name="name"
             value={pokemonData.name}
             onChange={handleChange}
-            required
           />
+          <span>{errors.name}</span>
         </div>
         <div>
-          <label htmlFor="image">Image:</label>
+          <label htmlFor="image">Image:</label> 
           <input
-            type="url"
             id="image"
             name="image"
             value={pokemonData.image}
             onChange={handleChange}
-            required
           />
+          {errors.image && <span className="error">{errors.image}</span>}
         </div>
         <div>
-          <label htmlFor="life">Life:</label>
+          <label htmlFor="hp">hp:</label>
           <input
-            type="number"
-            id="life"
-            name="life"
-            value={pokemonData.life}
+            id="hp"
+            name="hp"
+            value={pokemonData.hp}
             onChange={handleChange}
-            required
           />
+          <span>{errors.hp}</span>
         </div>
         <div>
           <label htmlFor="attack">Attack:</label>
           <input
-            type="number"
             id="attack"
             name="attack"
             value={pokemonData.attack}
             onChange={handleChange}
-            required
           />
+          <span>{errors.attack}</span>
         </div>
         <div>
           <label htmlFor="defense">Defense:</label>
           <input
-            type="number"
             id="defense"
             name="defense"
             value={pokemonData.defense}
             onChange={handleChange}
-            required
           />
+          <span>{errors.defense}</span>
         </div>
         <div>
           <label htmlFor="speed">Speed:</label>
           <input
-            type="number"
             id="speed"
             name="speed"
             value={pokemonData.speed}
             onChange={handleChange}
           />
+          <span>{errors.speed}</span>
         </div>
         <div>
           <label htmlFor="height">Height:</label>
           <input
-            type="number"
             id="height"
             name="height"
             value={pokemonData.height}
             onChange={handleChange}
           />
+          <span>{errors.height}</span>
         </div>
         <div>
           <label htmlFor="weight">Weight:</label>
           <input
-            type="number"
             id="weight"
             name="weight"
             value={pokemonData.weight}
             onChange={handleChange}
           />
+          <span>{errors.weight}</span>
         </div>
         <div>
-          <label htmlFor="types">Types:</label>
-          {pokemonTypes.map((type)=>(
-
+          <label htmlFor="types">Type 1:</label>
           <select
-            id={type.name}
-            name="types"
-            value={pokemonData.types}
+            id="type1"
+            name="type1"
+            value={pokemonData.types[0]}
             onChange={handleTypeChange}
           >
-            <option value={type.name}>{type.name}</option>
+            <option value="">Select a type</option>
+            {pokemonTypes.map((type) => (
+              <option key={type.name} value={type.name}>
+                {type.name}
+              </option>
+            ))}
           </select>
-          ))}
-            
+          <label htmlFor="types">Type 2:</label>
+          <select
+            id="type2"
+            name="type2"
+            value={pokemonData.types[1]}
+            onChange={handleTypeChange}
+          >
+            <option value="">Select a type</option>
+            {pokemonTypes.map((type) => (
+              <option key={type.name} value={type.name}>
+                {type.name}
+              </option>
+            ))}
+          </select>
         </div>
         <button type="submit">Create Pokemon</button>
       </form>
+      <div className={styles.uploadedImg}>
+         
+         {imageUrl && <img src={imageUrl} alt="Pokemon" /> }
+      </div>
     </div>
   );
 };

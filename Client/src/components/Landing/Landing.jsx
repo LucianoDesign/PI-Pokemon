@@ -1,14 +1,19 @@
 import React from 'react'
-import "./Landing.module.css"
+import styles from "./Landing.module.css"
 import { Link } from 'react-router-dom';
+import logo from "../../assets/Poke-logo.svg";
+
+
 
 const Landing = () => {
 
+
   return (
-    <div className='landingContent'>
-      <h1>landing</h1>
+    <div className={styles.landingContent}>
+      <div>
+      </div>
       <Link to={"/home"}>
-      <button>Ingresar</button>
+      <img src={logo} alt="poke-logo" className={styles.logo}/>
       </Link>
     </div>
     

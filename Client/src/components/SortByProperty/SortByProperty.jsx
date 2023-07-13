@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./SortByProperty.module.css"
 import {
     sortPokemons,
@@ -7,24 +7,34 @@ import {
 
 const SortByProperty = () => {
     const dispatch = useDispatch();
+    const sortState = useSelector((state)=>state.sortOrder);
+    console.log(sortState)
 
     const handleSort = (sortOrder) => {
         dispatch(sortPokemons(sortOrder));
       };
 
   return (
-    <div>
-        <button onClick={() => handleSort("asc")}>Ordenar A-Z</button>
-      <button onClick={() => handleSort("desc")}>Ordenar Z-A</button>
-      <button onClick={() => handleSort("asc_id")}>
-        Ordenar por id ascendente
-      </button>
-      <button onClick={() => handleSort("desc_id")}>
-        Ordenar por id descendente
-      </button>
-      <button onClick={() => handleSort("asc_attack")}>Menor Ataque</button>
-      <button onClick={() => handleSort("desc_attack")}>Mayor Ataque</button>
-    </div>
+    <div className={styles.sortContainer}>
+  <span
+    className={styles.videoGameButton}
+    onClick={() => handleSort(sortState === "asc" ? "desc" : "asc")}
+  >
+    {sortState === "asc" ? "Ordenar A-Z" : "Ordenar Z-A"}
+  </span>
+  <span
+    className={styles.videoGameButton}
+    onClick={() => handleSort(sortState === "asc_id" ? "desc_id" : "asc_id")}
+  >
+    {sortState === "asc_id" ? "Id ↓" : "Id ↑"}
+  </span>
+  <span className={styles.statButton} onClick={() => handleSort("asc_attack")}>
+    A
+  </span>
+  <span className={styles.statButton} onClick={() => handleSort("desc_attack")}>
+    A
+  </span>
+</div>
   )
 }
 

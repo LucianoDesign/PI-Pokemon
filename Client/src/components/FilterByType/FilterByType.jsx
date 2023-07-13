@@ -3,16 +3,17 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   filterPokemonsByType,
   resetFilteredPokemons,
+  updateSelectedTypes,
 } from "../../redux/actions";
+import styles from "./FilterByType.module.css"
 
 const FilterByType = () => {
   const dispatch = useDispatch();
   const pokemonTypes = useSelector((state) => state.types);
   const pokemonByName = useSelector((state) => state.pokemonByName);
-  const filteredPokemons = useSelector((state) => state.filteredPokemons);
-  const [selectedTypes, setSelectedTypes] = useState([]);
+  const selectedTypes = useSelector((state) => state.selectedTypes);
   const [shouldResetFiltered, setShouldResetFiltered] = useState(false);
-  const [noMatch, setNoMatch] = useState(false);
+
 
   useEffect(() => {
     if (selectedTypes.length > 0) {
@@ -24,38 +25,29 @@ const FilterByType = () => {
     }
   }, [dispatch, selectedTypes, shouldResetFiltered]);
 
-  useEffect(() => {
-    if (filteredPokemons.length === 0 && selectedTypes.length > 0) {
-      setNoMatch(true);
-    } else {
-      setNoMatch(false);
-    }
-  }, [filteredPokemons]);
 
   const handleTypeChange = (e) => {
     const { value, checked } = e.target;
     if (checked) {
-      setSelectedTypes((preSelectedTypes) => [
-        ...preSelectedTypes,
-        value,
-      ]); /* Setting types of pokemons */
+      const updatedSelectedTypes = [...selectedTypes, value];
+      dispatch(updateSelectedTypes(updatedSelectedTypes));
     } else {
-      setSelectedTypes(
-        (preSelectedTypes) =>
-          preSelectedTypes.filter(
-            (type) => type !== value
-          ) /* unsetting types of pokemons */
+      const updatedSelectedTypes = selectedTypes.filter(
+        (type) => type !== value
       );
+      dispatch(updateSelectedTypes(updatedSelectedTypes));
     }
     setShouldResetFiltered(!checked);
-  };
 
+  };
+  
   return (
-    <div>
+    <div className={styles.filterContent}>
       <h3>Filter by type:</h3>
       {pokemonTypes.map((type) => (
         <label key={type.name}>
           <input
+            className={styles.filterInputs}
             type="checkbox"
             value={type.name}
             checked={selectedTypes.includes(type.name)}
@@ -69,7 +61,6 @@ const FilterByType = () => {
           {type.name}
         </label>
       ))}
-      {noMatch && <p>No match for pokemons</p>}
     </div>
   );
 };

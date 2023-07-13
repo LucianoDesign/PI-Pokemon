@@ -7,6 +7,8 @@ import {
   RESET_POKEMON_BY_NAME,
   FILTER_POKEMONS_BY_TYPE,
   RESET_FILTERED_POKEMONS,
+  UPDATE_SELECTED_TYPES,
+  POST_POKEMON
 } from "./actionTypes";
 
 const initialState = {
@@ -18,6 +20,7 @@ const initialState = {
   pokemonsPerPage: 12,
   sortOrder: "",
   types: [],
+  selectedTypes: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -36,6 +39,15 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         types: types,
       };
+    case POST_POKEMON:
+      const postedPokemon = action.payload;
+      console.log(postedPokemon)
+      return {
+        
+        ...state,
+        pokemons: [...state.pokemons, postedPokemon]
+      }
+      
     case SET_POKEMON_NAME:
       const newPokemon = action.payload;
 
@@ -148,6 +160,11 @@ const rootReducer = (state = initialState, action) => {
         currentPage: 1,
         totalPages: Math.ceil(state.pokemons.length / state.pokemonsPerPage),
       };
+    case UPDATE_SELECTED_TYPES:
+      return{
+        ...state,
+        selectedTypes: action.payload,
+      }
 
     default:
       return state;

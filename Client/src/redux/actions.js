@@ -8,6 +8,8 @@ import {
   RESET_POKEMON_BY_NAME,
   FILTER_POKEMONS_BY_TYPE,
   RESET_FILTERED_POKEMONS,
+  UPDATE_SELECTED_TYPES,
+  POST_POKEMON
 } from "./actionTypes";
 
 export const URL = "http://localhost:3001/pokemon";
@@ -26,6 +28,22 @@ export const loadPokemons = () => {
     }
   };
 };
+
+export const postPokemon = (pokemonData) => {
+  
+  const endpoint = URL + "/pokemons";
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(endpoint, pokemonData);
+      return dispatch({
+        type: POST_POKEMON,
+        payload: data,
+      })
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
 
 export const loadPokemonTypes = () => {
   const endpoint = URL + "/types";
@@ -82,3 +100,10 @@ export const filterPokemonsByType = (selectedTypes) => ({
 export const resetFilteredPokemons = () => ({
   type: RESET_FILTERED_POKEMONS,
 });
+
+export const updateSelectedTypes = (selectedTypes) => {
+  return {
+    type: UPDATE_SELECTED_TYPES,
+    payload: selectedTypes,
+  };
+};

@@ -2,8 +2,8 @@
     display: flex;
     flex-wrap: wrap;
     width: 150px;
-    height: 50vh;
-    margin: 20px;
+    height: 220px;
+    margin: 15px 10px 10px 20px;
     flex-direction: column;
     align-content: center;
     justify-content: center;
@@ -13,3 +13,12 @@
     width: 100px;
 }
 
+.typesFont  li{
+    font-size: 12px;
+    
+}
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }

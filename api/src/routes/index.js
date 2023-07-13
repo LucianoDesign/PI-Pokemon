@@ -14,8 +14,8 @@ const { postPoke } = require("../controllers/postPoke")
 // Ejemplo: router.use('/auth', authRouter);
 router.get("/types", getTypes);
 router.get("/pokemons", getAllPokeData);
-router.get("/", getPokeByName)
 router.get("/:id", getPokeById); 
+router.get("/", getPokeByName)
 router.post("/pokemons", postPoke)
 
 module.exports = router;

@@ -1,6 +1,18 @@
-.divHomeContent{
+.divHomeContent {
+    margin-top: 65px;
+    background-color: rgb(240, 199, 199);
+}
+.divRenderPokeContent{
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     max-width:max-content;
+}
+.divRenderPoke{
+    width: 80vw;
+    height: max-content;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: start;
 }

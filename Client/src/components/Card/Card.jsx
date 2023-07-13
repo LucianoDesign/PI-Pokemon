@@ -11,8 +11,8 @@ const Card = (props) => {
       </Link>
       <img src={image} alt={name} />
       <div>
-        <h4>Type:</h4>
-        <ul>
+        <h5>Type:</h5>
+        <ul className={styles.typesFont}>
           {type.map((pokemonType, index) => (
             <li key={index}>{pokemonType}</li>
           ))}
