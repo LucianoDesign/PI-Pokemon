@@ -1,10 +1,11 @@
 @import url('../../index.css');
 .sortContainer{
     margin-top: 20px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    width: 100%;
+    margin-left: auto;
     justify-content: space-evenly;
+    width: 80vw;
 }
 
 

@@ -1,4 +1,4 @@
-import styles from './App.css'
+import './App.css'
 import {Routes, Route} from "react-router-dom";
 import PathRoutes from './helpers/Routes.helper';
 /*Components */
@@ -12,7 +12,7 @@ import NavBar from "./components/NavBar/NavBar"
 function App() {
 
   return (
-    <div className='App'>
+    <div className="App.css">
       <NavBar/>
       <Routes>
         <Route path="/" element={<Landing />}/>

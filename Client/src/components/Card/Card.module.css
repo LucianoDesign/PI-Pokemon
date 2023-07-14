@@ -2,9 +2,9 @@
   display: flex;
   border-radius: 20px;
   flex-wrap: wrap;
-  width: 150px;
+  width: 140px;
   height: 220px;
-  margin: 15px 10px 10px 20px;
+  margin: 15px 10px 10px 15px;
   flex-direction: column;
   align-content: center;
   justify-content: center;

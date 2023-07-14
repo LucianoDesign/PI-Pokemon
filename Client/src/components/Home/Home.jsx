@@ -29,15 +29,18 @@ const Home = () => {
     <div className={styles.divHomeContent}>
       <SearchBar />
       <SortByProperty />
-      <div className={styles.divRenderPokeContent}>
+      <div className={styles.screenContent}>
+      <div className={styles.divTypeContent}>
         <FilterByType />
-        <div className={styles.divRenderPoke}>
-          <RenderPokemons />
-        </div>
       </div>
-      
-        <Pagination />
-      
+      <div className={styles.divRenderPoke}>
+        <RenderPokemons />
+      <Pagination />
+      </div>
+
+      </div>
+
+
     </div>
   );
 };

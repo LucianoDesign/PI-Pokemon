@@ -1,22 +1,55 @@
+@import url('../../index.css');
+
 .filterContent{
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(56, 58, 53);
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     font-size: 1.0em;
-    width: 15vw;
-    border-radius: 2px;
-    margin-left: 10px;
-    border: 0.5px solid transparent;
-    border-image-source: url("../../assets/green-cool-retro-term.png");
-    border-image-slice: 35;
-    border-image-width: 15;
-    border-image-outset: 12;
+    width: 100%;
+    border-radius: 10px;
+    padding-left: 20px;
+  
 }
 
 .filterInputs{
     margin-left: 15px;
 }
 
+/* Eliminar estilos predeterminados */
+input[type="checkbox"]{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 3px;
+  outline: none;
+  cursor: pointer;
+  margin-right: 5px;
+  border-color: beige;
+}
+
+/* Estilo del checkbox cuando está marcado */
+input[type="checkbox"]:checked {
+  background-color: #000000;
+}
+
+/* Estilo del checkbox al pasar el cursor por encima */
+input[type="checkbox"]:hover {
+  border-bottom: 3px solid black;
+}
+
+input[value] {
+
+  cursor: pointer;
+}
+
+
+
+
+
+
+/******************************************* C R T  screen ****************************************************/
 @keyframes flicker {
   0% {
     opacity: 0.27861;
@@ -177,5 +210,14 @@
 .crt {
   animation: textShadow 2s infinite;
   position: relative;
-  color: green;
+  color: var(--secondary-color);
+  margin-left: 20px;
+  display: flex;
+  border: 1px solid transparent;
+    border-image-source: url("../../assets/green-cool-retro-term.png");
+    border-image-slice: 35;
+    border-image-width: 15;
+    border-image-outset: 12;
+    width: 100%;
+  
 }
