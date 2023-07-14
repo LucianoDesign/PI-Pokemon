@@ -125,6 +125,18 @@ const rootReducer = (state = initialState, action) => {
         case "desc_attack":
           sortByProperty("attack", false);
           break;
+        case "asc_defense":
+            sortByProperty("defense", true);
+          break;
+        case "desc_defense":
+            sortByProperty("defense", false);
+          break;
+        case "asc_speed":
+          sortByProperty("speed", true);
+          break;
+        case "desc_speed":
+          sortByProperty("speed", false);
+          break;
         default:
           break;
       }

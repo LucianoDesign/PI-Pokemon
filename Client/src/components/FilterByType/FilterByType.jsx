@@ -5,7 +5,7 @@ import {
   resetFilteredPokemons,
   updateSelectedTypes,
 } from "../../redux/actions";
-import styles from "./FilterByType.module.css"
+import styles from "./FilterByType.module.css";
 
 const FilterByType = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,6 @@ const FilterByType = () => {
   const pokemonByName = useSelector((state) => state.pokemonByName);
   const selectedTypes = useSelector((state) => state.selectedTypes);
   const [shouldResetFiltered, setShouldResetFiltered] = useState(false);
-
 
   useEffect(() => {
     if (selectedTypes.length > 0) {
@@ -24,7 +23,6 @@ const FilterByType = () => {
       }
     }
   }, [dispatch, selectedTypes, shouldResetFiltered]);
-
 
   const handleTypeChange = (e) => {
     const { value, checked } = e.target;
@@ -38,29 +36,30 @@ const FilterByType = () => {
       dispatch(updateSelectedTypes(updatedSelectedTypes));
     }
     setShouldResetFiltered(!checked);
-
   };
-  
+
   return (
-    <div className={styles.filterContent}>
-      <h3>Filter by type:</h3>
-      {pokemonTypes.map((type) => (
-        <label key={type.name}>
-          <input
-            className={styles.filterInputs}
-            type="checkbox"
-            value={type.name}
-            checked={selectedTypes.includes(type.name)}
-            onChange={handleTypeChange}
-            disabled={
-              (!selectedTypes.includes(type.name) &&
-                selectedTypes.length >= 2) ||
-              pokemonByName.length > 0
-            }
-          />
-          {type.name}
-        </label>
-      ))}
+    <div className={styles.crt}>
+      <div className={styles.filterContent}>
+        <h4>Filter by type:</h4>
+        {pokemonTypes.map((type) => (
+          <label key={type.name}>
+            <input
+              className={styles.filterInputs}
+              type="checkbox"
+              value={type.name}
+              checked={selectedTypes.includes(type.name)}
+              onChange={handleTypeChange}
+              disabled={
+                (!selectedTypes.includes(type.name) &&
+                  selectedTypes.length >= 2) ||
+                pokemonByName.length > 0
+              }
+            />
+            {type.name}
+          </label>
+        ))}
+      </div>
     </div>
   );
 };

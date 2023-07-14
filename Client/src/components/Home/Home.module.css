@@ -1,6 +1,8 @@
+@import url('../../index.css');
+
 .divHomeContent {
     margin-top: 65px;
-    background-color: rgb(240, 199, 199);
+    background-image: linear-gradient(var(--background-color) 60%, var(--primary-color) 100%);
 }
 .divRenderPokeContent{
     display: flex;

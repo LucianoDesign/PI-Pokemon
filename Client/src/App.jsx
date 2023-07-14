@@ -1,4 +1,4 @@
-import './App.css'
+import styles from './App.css'
 import {Routes, Route} from "react-router-dom";
 import PathRoutes from './helpers/Routes.helper';
 /*Components */

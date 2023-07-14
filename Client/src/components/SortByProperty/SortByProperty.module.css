@@ -1,23 +1,24 @@
+@import url('../../index.css');
 .sortContainer{
-    
+    margin-top: 20px;
     display: inline-flex;
     align-items: center;
     width: 100%;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 
 .statButton{
     padding-left: 0 !important;
     text-shadow: 1px 1px pink, -1px -1px maroon;
-    line-height: 1.5em;
+    line-height: 2em;
     text-align: center;
     display: inline-block;
-    width: 1.5em;
+    width: 2em;
     -webkit-border-radius: .75em;
     -moz-border-radius: .75em;
     -o-border-radius: .75em;
-        border-radius: .75em;
+        border-radius: 1em;
     background-color: red;
     -webkit-box-shadow:  0 .2em maroon;
     -moz-box-shadow:  0 .2em maroon;
@@ -33,25 +34,47 @@
     cursor: pointer;
   padding-left: 5px;
 }
-
+.statButtonOn {
+    padding-left: 0 !important;
+    text-shadow: 1px 1px lime, -1px -1px darkgreen;
+    line-height: 2em;
+    text-align: center;
+    display: inline-block;
+    width: 2em;
+    -webkit-border-radius: .75em;
+    -moz-border-radius: .75em;
+    -o-border-radius: .75em;
+    border-radius: 1em;
+    background-color: green;
+    -webkit-box-shadow: 0 .2em darkgreen;
+    -moz-box-shadow: 0 .2em darkgreen;
+    -o-box-shadow: 0 .2em darkgreen;
+    box-shadow: 0 .2em darkgreen;
+    color: green;
+    margin: 6px;
+    background-color: green;
+    background-image: -o-linear-gradient(left top, lime 3%, green 22%, darkgreen 99%);
+    background-image: -moz-linear-gradient(left top, lime 3%, green 22%, darkgreen 99%);
+    background-image: -webkit-linear-gradient(left top, lime 3%, green 22%, darkgreen 99%);
+    background-image: linear-gradient(left top, lime 3%, green 22%, darkgreen 99%);
+    cursor: pointer;
+    padding-left: 5px;
+}
 .videoGameButton{
     font-family: "StartUp";
     text-align: center;
 	display: inline-block;
 	margin:5px;
     font-weight: bold;
-    padding: 10px 0 10px 10px ;
-    background-color: lightgray;
+    padding: 10px 5px 10px 10px ;
+    background-color: var(--primary-color);
     text-shadow: -1px -1px black, 1px 1px white;
-    color: gray;
-    -webkit-border-radius: 7px;
-	-moz-border-radius: 7px;
-	-o-border-radius: 7px;
+    color: var(--secondary-color);
 	border-radius: 7px;
     box-shadow: 0 .2em gray; 
     cursor: pointer;
 }
-.videoGameButton:active , .statButton:active{
+.videoGameButton:active , .statButton:active , .statButtonOn:active{
 	box-shadow: none;
 	position: relative;
 	top: .3em;

@@ -21,6 +21,11 @@ const getAllPokeData = async (req, res) => {
         image: pokemonDb.image,
         type: types,
         attack: pokemonDb.attack,
+        defense: pokemonDb.defense,
+        speed: pokemonDb.speed,
+        hp: pokemonDb.hp,
+        weight: pokemonDb.weight,
+        height: pokemonDb.height,
       };
     });
     
@@ -30,6 +35,9 @@ const getAllPokeData = async (req, res) => {
         const { data } = await axios(pokemon.url); // Obtener los datos individuales de cada Pokémon
         const stats = data.stats;
         const attackStat = stats.find((stat) => stat.stat.name === "attack");
+        const defenseStat = stats.find((stat) => stat.stat.name === "defense");
+        const speedStat = stats.find((stat) => stat.stat.name === "speed");
+        const hpStat = stats.find((stat) => stat.stat.name === "hp");
         const types = data.types.map((type) => type.type.name); 
 
         // Crear un objeto con los datos del Pokémon
@@ -39,6 +47,11 @@ const getAllPokeData = async (req, res) => {
           image: data.sprites.other["official-artwork"].front_default,
           type: types,
           attack: attackStat.base_stat,
+          defense: defenseStat.base_stat,
+          speed: speedStat.base_stat,
+          hp: hpStat.base_stat,
+          weight: data.weight,
+          height: data.height,
         };
 
       

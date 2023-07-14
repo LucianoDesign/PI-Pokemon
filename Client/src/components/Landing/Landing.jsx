@@ -10,11 +10,11 @@ const Landing = () => {
 
   return (
     <div className={styles.landingContent}>
-      <div>
-      </div>
+      
       <Link to={"/home"}>
       <img src={logo} alt="poke-logo" className={styles.logo}/>
       </Link>
+      
     </div>
     
   )
