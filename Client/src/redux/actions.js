@@ -1,4 +1,5 @@
-import axios from "axios";
+/* eslint-disable no-console */
+import axios from "../utils/axios";
 import {
   LOAD_POKEMONS,
   LOAD_TYPES,
@@ -9,16 +10,14 @@ import {
   FILTER_POKEMONS_BY_TYPE,
   RESET_FILTERED_POKEMONS,
   UPDATE_SELECTED_TYPES,
-  POST_POKEMON
+  POST_POKEMON,
 } from "./actionTypes";
 
-export const URL = "http://localhost:3001/pokemon";
 
 export const loadPokemons = () => {
-  const endpoint = URL + "/pokemons";
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(endpoint);
+      const { data } = await axios.get("/pokemons");
       return dispatch({
         type: LOAD_POKEMONS,
         payload: data,
@@ -30,26 +29,24 @@ export const loadPokemons = () => {
 };
 
 export const postPokemon = (pokemonData) => {
-  
-  const endpoint = URL + "/pokemons";
+
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(endpoint, pokemonData);
+      const { data } = await axios.post("/pokemons", pokemonData);
       return dispatch({
         type: POST_POKEMON,
         payload: data,
-      })
+      });
     } catch (error) {
       console.log(error.message);
     }
-  }
-}
+  };
+};
 
 export const loadPokemonTypes = () => {
-  const endpoint = URL + "/types";
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(endpoint);
+      const { data } = await axios.get("/types");
       return dispatch({
         type: LOAD_TYPES,
         payload: data,
@@ -61,10 +58,9 @@ export const loadPokemonTypes = () => {
 };
 export const loadPokemonName = (name) => {
   const formattedName = name.toLowerCase().trim();
-  const endpoint = URL + `/${formattedName}`;
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(endpoint);
+      const { data } = await axios.get(`/${formattedName}`);
 
       return dispatch({
         type: SET_POKEMON_NAME,

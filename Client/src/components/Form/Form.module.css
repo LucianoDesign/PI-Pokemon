@@ -1,4 +1,5 @@
 .FormBox span {
+    
     margin-left:20px;
     color: rgb(208, 29, 29);
     
@@ -6,4 +7,9 @@
 }
 .uploadedImg img{
     width: 400px;
+}
+
+.FormBox{
+    margin-top: 100px;
+    color: white;
 }

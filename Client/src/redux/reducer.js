@@ -8,7 +8,7 @@ import {
   FILTER_POKEMONS_BY_TYPE,
   RESET_FILTERED_POKEMONS,
   UPDATE_SELECTED_TYPES,
-  POST_POKEMON
+  POST_POKEMON,
 } from "./actionTypes";
 
 const initialState = {
@@ -41,13 +41,11 @@ const rootReducer = (state = initialState, action) => {
       };
     case POST_POKEMON:
       const postedPokemon = action.payload;
-      console.log(postedPokemon)
       return {
-        
         ...state,
-        pokemons: [...state.pokemons, postedPokemon]
-      }
-      
+        pokemons: [...state.pokemons, postedPokemon],
+      };
+
     case SET_POKEMON_NAME:
       const newPokemon = action.payload;
 
@@ -61,7 +59,7 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           pokemonByName: [...state.pokemonByName, newPokemon],
           currentPage: 1,
-          pokemonsPerPage: 50
+          pokemonsPerPage: 50,
         };
       }
 
@@ -69,8 +67,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         pokemonByName: [],
-        pokemonsPerPage: 12
-        
+        pokemonsPerPage: 12,
       };
 
     case CHANGE_PAGE:
@@ -126,16 +123,22 @@ const rootReducer = (state = initialState, action) => {
           sortByProperty("attack", false);
           break;
         case "asc_defense":
-            sortByProperty("defense", true);
+          sortByProperty("defense", true);
           break;
         case "desc_defense":
-            sortByProperty("defense", false);
+          sortByProperty("defense", false);
           break;
         case "asc_speed":
           sortByProperty("speed", true);
           break;
         case "desc_speed":
           sortByProperty("speed", false);
+          break;
+        case "asc_hp":
+          sortByProperty("hp", true);
+          break;
+        case "desc_hp":
+          sortByProperty("hp", false);
           break;
         default:
           break;
@@ -173,10 +176,10 @@ const rootReducer = (state = initialState, action) => {
         totalPages: Math.ceil(state.pokemons.length / state.pokemonsPerPage),
       };
     case UPDATE_SELECTED_TYPES:
-      return{
+      return {
         ...state,
         selectedTypes: action.payload,
-      }
+      };
 
     default:
       return state;

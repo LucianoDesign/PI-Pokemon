@@ -1,8 +1,10 @@
+/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import styles from "./Card.module.css";
 
 const Card = (props) => {
   const { id, name, image, type } = props;
+  
 
   return (
     <Link to={`detail/${id}`} className="Link">

@@ -33,7 +33,7 @@ const SearchBar = () => {
   return (
     <div>
       <div className={`${styles.searchBox} ${isActive ? styles.active : ''}`}>
-      <input className={styles.searchInput} type="text" name="" placeholder="Search" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={handleKeyDown}/>
+      <input className={styles.searchInput} type="text" name="" placeholder="Poke-Search" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={handleKeyDown}/>
       <button className={styles.searchButton} onClick={handleClick}>
         <img src={logo} alt="search-icon" className={styles.logo} onClick={handleSearch}/>
       </button>

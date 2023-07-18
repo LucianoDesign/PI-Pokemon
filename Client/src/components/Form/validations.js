@@ -22,36 +22,18 @@ export const validateImage = async (url) => {
   export const validateStats = (value, stat) => {
     if (!value) return `The ${stat} must have stats.`;
     if (isNaN(value)) return `The ${stat} must be a number.`;
-    
-    if (stat === "hp") {
-      const hpValue = Number(value);
-      return (hpValue < 1 || hpValue > 200) ? `Invalid ${stat} value. It should be between 1 and 200.` : "";
-    }
-    
-    if (stat === "attack") {
-      const attackValue = Number(value);
-      return (attackValue < 1 || attackValue > 170) ? `Invalid ${stat} value. It should be between 1 and 170.` : "";
-    }
-    
-    if (stat === "defense") {
-      const defenseValue = Number(value);
-      return (defenseValue < 1 || defenseValue > 120) ? `Invalid ${stat} value. It should be between 1 and 120.` : "";
-    }
-    
-    if (stat === "speed") {
-      const speedValue = Number(value);
-      return (speedValue < 1 || speedValue > 145) ? `Invalid ${stat} value. It should be between 1 and 145.` : "";
-    }
-    
-    if (stat === "height") {
-      const heightValue = Number(value);
-      return (heightValue < 1 || heightValue > 400) ? `Invalid ${stat} value. It should be between 1 and 400.` : "";
-    }
-    
-    if (stat === "weight") {
-      const weightValue = Number(value);
-      return (weightValue < 1 || weightValue > 3000) ? `Invalid ${stat} value. It should be between 1 and 3000.` : "";
-    }
-    
-    return ""; 
-  }
+  
+    const statLimits = {
+      hp: { min: 1, max: 260 },
+      attack: { min: 1, max: 200 },
+      defense: { min: 1, max: 260 },
+      speed: { min: 1, max: 190 },
+      height: { min: 1, max: 1000 },
+      weight: { min: 1, max: 10000 },
+    };
+  
+    const statValue = Number(value);
+    const { min, max } = statLimits[stat];
+  
+    return statValue < min || statValue > max ? `Invalid ${stat} value. It should be between ${min} and ${max}.` : "";
+  };

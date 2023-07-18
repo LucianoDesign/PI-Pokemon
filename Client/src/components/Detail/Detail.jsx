@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
-import {URL} from "../../redux/actions"
-
-
+import axios from "../../utils/axios";
+import styles from "./Detail.module.css";
+import StatBar from "../StatBar/StatBar";
 
 const Detail = () => {
   const { id } = useParams();
@@ -12,30 +11,19 @@ const Detail = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let isMounted = true; 
-
     const fetchPokemon = async () => {
       try {
-        const response = await axios.get(`${URL}/${id}`);
+        const response = await axios.get(`${id}`);
         const { data } = response;
-
-        if (isMounted) {
-          setPokemon(data);
-          setLoading(false);
-        }
+        setPokemon(data);
+        setLoading(false);
       } catch (error) {
-        if (isMounted) {
-          setError(error.message);
-          setLoading(false);
-        }
+        setError(error.message);
+        setLoading(false);
       }
     };
 
     fetchPokemon();
-
-    return () => {
-      isMounted = false; 
-    };
   }, [id]);
 
   if (loading) {
@@ -47,22 +35,37 @@ const Detail = () => {
   }
   
   return (
-    <div>
-      <h1>Detail</h1>
-      <h1>{pokemon.name}</h1>
-      <img src={pokemon.image} alt={pokemon.name} />
-      <h3>HP: {pokemon.hp}</h3>
-      <h3>Speed: {pokemon.speed}</h3>
-      <h3>Attack: {pokemon.attack}</h3>
-      <h3>Defense {pokemon.defense}</h3>
-      <h3>Height: {pokemon.height}</h3>
-      <h3>Weight: {pokemon.weight}</h3>
-      <h4>Type:</h4>
+    <div className={styles.crt}>
+    <div className={styles.detailContent}>
+      <div className={styles.detailImageDiv}>
+        <img src={pokemon.image} alt={pokemon.name} className={styles.detailImage}/>
+      </div>
+      <div className={styles.detailStats}>
+        <h1>{pokemon.name}</h1>
+        {/* Resto de los datos del Pokémon */}
+        <p>HP: {pokemon.hp}</p>
+        <StatBar statValue={pokemon.hp} maxValue={255} />
+
+        <p>Speed: {pokemon.speed}</p>
+        <StatBar statValue={pokemon.speed} maxValue={180} />
+
+        <p>Attack: {pokemon.attack}</p>
+        <StatBar statValue={pokemon.attack} maxValue={190} />
+
+        <p>Defense: {pokemon.defense}</p>
+        <StatBar statValue={pokemon.defense} maxValue={250} />
+
+        <p>Height: {pokemon.height}</p>
+        <p>Weight: {pokemon.weight}</p>
+        <h4>Type:</h4>
         <ul>
           {pokemon.type.map((pokemonType, index) => (
             <li key={index}>{pokemonType}</li>
           ))}
         </ul>
+      </div>
+    </div>
+
     </div>
   );
 };

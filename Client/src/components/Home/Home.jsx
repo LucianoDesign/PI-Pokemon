@@ -6,9 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadPokemons, loadPokemonTypes } from "../../redux/actions";
 /* *********************  COMPONENTS  *********************** */
 import Pagination from "../Pagination/Pagination";
-import RenderPokemons from "../RenderPokemons/renderPokemons";
+import RenderPokemons from "../RenderPokemons/RenderPokemons";
 import FilterByType from "../FilterByType/FilterByType";
-import SearchBar from "../searchBar/searchBar";
+import SearchBar from "../SearchBar/SearchBar";
 import SortByProperty from "../SortByProperty/SortByProperty";
 
 const Home = () => {
@@ -23,6 +23,7 @@ const Home = () => {
     if (!pokemonTypesLoaded) {
       dispatch(loadPokemonTypes());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -30,17 +31,14 @@ const Home = () => {
       <SearchBar />
       <SortByProperty />
       <div className={styles.screenContent}>
-      <div className={styles.divTypeContent}>
-        <FilterByType />
+        <div className={styles.divTypeContent}>
+          <FilterByType />
+        </div>
+        <div className={styles.divRenderPoke}>
+          <Pagination />
+          <RenderPokemons />
+        </div>
       </div>
-      <div className={styles.divRenderPoke}>
-        <RenderPokemons />
-      <Pagination />
-      </div>
-
-      </div>
-
-
     </div>
   );
 };

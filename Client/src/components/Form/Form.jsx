@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { validateName, validateImage, validateStats } from "./validations";
 import { postPokemon } from "../../redux/actions";
-import styles from './Form.module.css'
+import styles from "./Form.module.css";
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -31,86 +31,96 @@ const Form = () => {
     types: "",
   });
 
-  
-  
- 
   const handleChange = async (event) => {
     const property = event.target.name;
     const value = event.target.value;
-    
+
     setPokemonData((prevData) => ({
       ...prevData,
       [property]: value,
     }));
 
-    if(property === "name") {
-      setErrors({ ...errors, name: validateName(value)});
+    if (property === "name") {
+      setErrors({ ...errors, name: validateName(value) });
     }
     if (property === "image") {
-      
       try {
         await validateImage(value);
-        setErrors({ ...errors, image: "" }); 
+        setErrors({ ...errors, image: "" });
       } catch (error) {
-        setErrors({ ...errors, image: error }); 
+        setErrors({ ...errors, image: error });
       }
       setImageUrl(value);
     }
-    if (property === "hp") {
-      setErrors({...errors, hp: validateStats(value , property)});
-    }
-    if (property === "attack") {
-      setErrors({...errors, attack: validateStats(value , property)});
-    }
-    if (property === "defense") {
-      setErrors({...errors, defense: validateStats(value , property)});
-    }
-    if (property === "speed") {
-      setErrors({...errors, speed: validateStats(value , property)});
-    }
-    if (property === "height") {
-      setErrors({...errors, height: validateStats(value , property)});
-    }
-    if (property === "weight") {
-      setErrors({...errors, weight: validateStats(value , property)});
+    // Define an object to map properties to validation functions
+    const propertyValidationMap = {
+      hp: validateStats,
+      attack: validateStats,
+      defense: validateStats,
+      speed: validateStats,
+      height: validateStats,
+      weight: validateStats,
+    };
+
+    // Check if the property exists in the validation map and update errors accordingly
+    if (property in propertyValidationMap) {
+      setErrors({
+        ...errors,
+        [property]: propertyValidationMap[property](value, property),
+      });
     }
   };
 
-
-
   const handleTypeChange = (e) => {
-    let { name, value } = e.target;
-    if (value === '') value = undefined;
+    const { name, value } = e.target;
+  
+    // Actualizar solo el tipo 1
     if (name === "type1") {
+      setPokemonData((prevData) => ({
+        ...prevData,
+        types: [value, prevData.types[1]],
+      }));
+    }
+  
+    // Actualizar solo el tipo 2
+    if (name === "type2") {
       setPokemonData((prevData) => ({
         ...prevData,
         types: [prevData.types[0], value],
       }));
-    } 
-   if (name === "type2") {
+    }
+  
+    // Manejar la opción de dejar un botón vacío
+    if (name === "type1" && value === "") {
       setPokemonData((prevData) => ({
         ...prevData,
-        types: [prevData.types[1], value],
+        types: [undefined, prevData.types[1]],
+      }));
+    }
+  
+    if (name === "type2" && value === "") {
+      setPokemonData((prevData) => ({
+        ...prevData,
+        types: [prevData.types[0], undefined],
       }));
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(pokemonData)
+    
     const emptyField = Object.values(pokemonData).some((data) => data === "");
-    if(emptyField) {
+    if (emptyField) {
       window.alert("All fields must be completed");
-      return
+      return;
     }
     const hasErrors = Object.values(errors).some((error) => error !== "");
-    if(hasErrors) {
+    if (hasErrors) {
       window.alert("Wrong data, try again");
-      return
+      return;
     }
     dispatch(postPokemon(pokemonData));
-    window.alert("pokemon created")
-    
+    window.alert("pokemon created");
   };
 
   return (
@@ -128,7 +138,7 @@ const Form = () => {
           <span>{errors.name}</span>
         </div>
         <div>
-          <label htmlFor="image">Image:</label> 
+          <label htmlFor="image">Image:</label>
           <input
             id="image"
             name="image"
@@ -230,8 +240,7 @@ const Form = () => {
         <button type="submit">Create Pokemon</button>
       </form>
       <div className={styles.uploadedImg}>
-         
-         {imageUrl && <img src={imageUrl} alt="Pokemon" /> }
+        {imageUrl && <img src={imageUrl} alt="Pokemon" />}
       </div>
     </div>
   );

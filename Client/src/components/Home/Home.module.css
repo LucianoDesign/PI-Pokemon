@@ -1,20 +1,22 @@
 @import url('../../index.css');
 
-body{
-    background-image: linear-gradient(var(--background-color) 60%, var(--primary-color) 100%);
-}
+
 .divHomeContent {
     margin-top: 75px;
 }
 .screenContent {
     display: flex;
+
 }
 .divTypeContent{
     display: flex;
+    width: 20%;
+    margin-left: 30px;
+
 }
 .divRenderPoke{
-    width: 80%;
-    height: max-content;
+    width: 75%;
+    height: 100%;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;

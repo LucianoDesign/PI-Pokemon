@@ -211,13 +211,14 @@ input[value] {
   animation: textShadow 2s infinite;
   position: relative;
   color: var(--secondary-color);
-  margin-left: 20px;
   display: flex;
+  justify-content: center;
   border: 1px solid transparent;
     border-image-source: url("../../assets/green-cool-retro-term.png");
     border-image-slice: 35;
     border-image-width: 15;
     border-image-outset: 12;
     width: 100%;
+    height: 520px;
   
 }

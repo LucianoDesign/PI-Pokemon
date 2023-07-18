@@ -8,14 +8,28 @@
 }
 html, body{
   width: 100%;
-  height: max-content;
+  height: 100%;
   font-family: "PixelFont";
+  user-select: none;
+  
+  background-image: linear-gradient(var(--background-color) 60%, var(--primary-color) 100%);
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-attachment: fixed;
+
+
 }
 a {
   text-decoration: none;
   color: #000;
 }
-
+button{
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: "PixelFont";
+}
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

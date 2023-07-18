@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./SortByProperty.module.css";
 import { sortPokemons } from "../../redux/actions";
@@ -6,11 +6,11 @@ import { sortPokemons } from "../../redux/actions";
 const SortByProperty = () => {
   const dispatch = useDispatch();
   const sortState = useSelector((state) => state.sortOrder);
-  console.log(sortState);
 
   const [attackButtonActive, setAttackButtonActive] = useState(false);
   const [defenseButtonActive, setDefenseButtonActive] = useState(false);
   const [speedButtonActive, setSpeedButtonActive] = useState(false);
+  const [hpButtonActive, setHpButtonActive] = useState(false);
 
   const handleSort = (sortOrder) => {
     dispatch(sortPokemons(sortOrder));
@@ -21,6 +21,7 @@ const SortByProperty = () => {
     setAttackButtonActive(!attackButtonActive);
     setDefenseButtonActive(false);
     setSpeedButtonActive(false);
+    setHpButtonActive(false);
     handleSort(sortOrder);
   };
 
@@ -29,6 +30,7 @@ const SortByProperty = () => {
     setDefenseButtonActive(!defenseButtonActive);
     setAttackButtonActive(false);
     setSpeedButtonActive(false);
+    setHpButtonActive(false);
     handleSort(sortOrder);
   };
 
@@ -37,12 +39,22 @@ const SortByProperty = () => {
     setSpeedButtonActive(!speedButtonActive);
     setAttackButtonActive(false);
     setDefenseButtonActive(false);
+    setHpButtonActive(false);
+    handleSort(sortOrder);
+  }
+
+  const handleHpSort = () => {
+    const sortOrder = hpButtonActive ? "asc_hp" : "desc_hp";
+    setHpButtonActive(!hpButtonActive);
+    setSpeedButtonActive(false);
+    setAttackButtonActive(false);
+    setDefenseButtonActive(false);
     handleSort(sortOrder);
   }
 
   return (
     <div className={styles.sortContainer}>
-      <span
+      <button
         className={styles.videoGameButton}
         onClick={() => {
           handleSort(sortState === "asc" ? "desc" : "asc");
@@ -52,8 +64,8 @@ const SortByProperty = () => {
         }}
       >
         {sortState === "asc" ? "A-Z" : "Z-A"}
-      </span>
-      <span
+      </button>
+      <button
         className={styles.videoGameButton}
         onClick={() => {
           handleSort(sortState === "desc_id" ? "asc_id" : "desc_id")
@@ -64,31 +76,43 @@ const SortByProperty = () => {
         }
       >
         {sortState === "desc_id" ? "Id ↓" : "Id ↑"}
-      </span>
-      <span
+      </button>
+      <button
+        title="Attack"
         className={
           attackButtonActive ? styles.statButtonOn : styles.statButton
         }
         onClick={handleAttackSort}
       >
         A
-      </span>
-      <span
+      </button>
+      <button
+        title="Defense"
         className={
           defenseButtonActive ? styles.statButtonOn : styles.statButton
         }
         onClick={handleDefenseSort}
       >
         D
-      </span>
-      <span
+      </button>
+      <button
+        title="Speed"
         className={
           speedButtonActive ? styles.statButtonOn : styles.statButton
         }
         onClick={handleSpeedSort}
       >
         S
-      </span>
+      </button>
+      <button
+        title="HP"
+        className={
+          hpButtonActive ? styles.statButtonOn : styles.statButton
+        }
+        onClick={handleHpSort}
+      >
+        H
+      </button>
     </div>
   );
 };
