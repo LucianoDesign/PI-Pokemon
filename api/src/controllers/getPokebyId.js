@@ -1,6 +1,7 @@
 const { Pokemon, Type } = require("../db");
 const { default: axios } = require("axios");
 const URL = "https://pokeapi.co/api/v2/pokemon/";
+const { getStats } = require("../utils/utils");
 
 // Función para obtener un Pokémon de la base de datos
 const getPokemonFromDB = async (id) => {
@@ -8,30 +9,28 @@ const getPokemonFromDB = async (id) => {
 };
 
 // Función para obtener un Pokémon de la API externa
-const getPokemonFromAPI = async (id) => {
+const getPokemonFromAPI = async (_id) => {
   try {
-    const { data } = await axios(URL + id);
-    
+    const { data } = await axios(URL + _id);
+
     const stats = data.stats;
-    const attackStat = stats.find((stat) => stat.stat.name === "attack");
-    const defenseStat = stats.find((stat) => stat.stat.name === "defense");
-    const speedStat = stats.find((stat) => stat.stat.name === "speed");
-    const hpStat = stats.find((stat) => stat.stat.name === "hp");
+    const { id, name, sprites, weight, height } = data;
+    const { attack, defense, speed, hp } = getStats(stats);
     const types = data.types.map((type) => type.type.name);
-    
+
     const pokemon = {
-      id: data.id,
-      name: data.name,
-      attack: attackStat.base_stat,
-      defense: defenseStat.base_stat,
-      speed: speedStat.base_stat,
-      hp: hpStat.base_stat,
-      weight: data.weight,
-      height: data.height,
-      image: data.sprites.other["official-artwork"].front_default,
+      id,
+      name,
+      image: sprites.other["official-artwork"].front_default,
       type: types,
+      attack,
+      defense,
+      speed,
+      hp,
+      weight,
+      height,
     };
-    
+
     return pokemon;
   } catch (error) {
     throw new Error("Error al obtener el Pokémon de la API");
@@ -43,7 +42,7 @@ const getPokeById = async (req, res) => {
     const id = req.params.id;
 
     let pokemon;
-    
+
     if (id.length > 8) {
       // Obtener el Pokémon de la base de datos
       pokemon = await getPokemonFromDB(id);
@@ -51,10 +50,10 @@ const getPokeById = async (req, res) => {
       // Obtener el Pokémon de la API externa
       pokemon = await getPokemonFromAPI(id);
     }
-    
+
     if (pokemon) {
       let response;
-      
+
       if (pokemon.dataValues) {
         response = {
           ...pokemon.dataValues,
@@ -62,10 +61,10 @@ const getPokeById = async (req, res) => {
         };
       } else {
         response = {
-          ...pokemon
+          ...pokemon,
         };
       }
-      
+
       return res.status(200).json(response);
     } else {
       return res.status(404).json({ message: "Pokemon not found" });

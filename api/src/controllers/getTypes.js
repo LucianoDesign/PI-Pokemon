@@ -3,7 +3,7 @@ const { Type } = require("../db");
 
 const URL = "https://pokeapi.co/api/v2/type";
 
-getTypes = async (req, res) => {
+getTypes = async (_, res) => {
   try {
     const existingTypes = await Type.findAll(); // Consultar los tipos existentes
 
