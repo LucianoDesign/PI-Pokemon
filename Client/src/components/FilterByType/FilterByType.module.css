@@ -31,12 +31,12 @@ input[type="checkbox"]{
 
 /* Estilo del checkbox cuando está marcado */
 input[type="checkbox"]:checked {
-  background-color: #000000;
+  background-color: var(--secondary-color);
 }
 
 /* Estilo del checkbox al pasar el cursor por encima */
 input[type="checkbox"]:hover {
-  border-bottom: 3px solid black;
+  border-bottom: 3px solid var(--secondary-color);
 }
 
 input[value] {

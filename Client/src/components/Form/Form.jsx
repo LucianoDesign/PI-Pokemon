@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { validateName, validateImage, validateStats } from "./validations";
 import { postPokemon } from "../../redux/actions";
+import StatBar from "../StatBar/StatBar";
 import styles from "./Form.module.css";
 
 const Form = () => {
@@ -74,34 +75,23 @@ const Form = () => {
   const handleTypeChange = (e) => {
     const { name, value } = e.target;
   
-    // Actualizar solo el tipo 1
+    // Obtener los tipos actuales
+    const [type1, type2] = pokemonData.types;
+  
+    // Actualizar los tipos según el nombre del campo
+    let updatedTypes;
     if (name === "type1") {
-      setPokemonData((prevData) => ({
-        ...prevData,
-        types: [value, prevData.types[1]],
-      }));
+      updatedTypes = [value, type2];
+    } else if (name === "type2") {
+      updatedTypes = [type1, value];
     }
   
-    // Actualizar solo el tipo 2
-    if (name === "type2") {
+    // Actualizar los tipos solo si ambos están seleccionados
+    // o si al menos uno de ellos está seleccionado
+    if (type1 || type2 || value !== "") {
       setPokemonData((prevData) => ({
         ...prevData,
-        types: [prevData.types[0], value],
-      }));
-    }
-  
-    // Manejar la opción de dejar un botón vacío
-    if (name === "type1" && value === "") {
-      setPokemonData((prevData) => ({
-        ...prevData,
-        types: [undefined, prevData.types[1]],
-      }));
-    }
-  
-    if (name === "type2" && value === "") {
-      setPokemonData((prevData) => ({
-        ...prevData,
-        types: [prevData.types[0], undefined],
+        types: updatedTypes,
       }));
     }
   };
@@ -124,8 +114,13 @@ const Form = () => {
   };
 
   return (
-    <div className={styles.FormBox}>
+    <div>
+
+    <div className={styles.formTitle}>
       <h2>Create a new Pokemon</h2>
+
+    </div>
+    <div className={styles.FormBox}>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Name:</label>
@@ -135,7 +130,7 @@ const Form = () => {
             value={pokemonData.name}
             onChange={handleChange}
           />
-          <span>{errors.name}</span>
+          <p>{errors.name}</p>
         </div>
         <div>
           <label htmlFor="image">Image:</label>
@@ -145,7 +140,7 @@ const Form = () => {
             value={pokemonData.image}
             onChange={handleChange}
           />
-          {errors.image && <span className="error">{errors.image}</span>}
+          {errors.image && <p className="error">{errors.image}</p>}
         </div>
         <div>
           <label htmlFor="hp">hp:</label>
@@ -155,7 +150,8 @@ const Form = () => {
             value={pokemonData.hp}
             onChange={handleChange}
           />
-          <span>{errors.hp}</span>
+          <p>{errors.hp}</p>
+          <StatBar statValue={pokemonData.hp} maxValue={255} />
         </div>
         <div>
           <label htmlFor="attack">Attack:</label>
@@ -165,7 +161,8 @@ const Form = () => {
             value={pokemonData.attack}
             onChange={handleChange}
           />
-          <span>{errors.attack}</span>
+          <p>{errors.attack}</p>
+          <StatBar statValue={pokemonData.attack} maxValue={200} />
         </div>
         <div>
           <label htmlFor="defense">Defense:</label>
@@ -175,7 +172,8 @@ const Form = () => {
             value={pokemonData.defense}
             onChange={handleChange}
           />
-          <span>{errors.defense}</span>
+          <p>{errors.defense}</p>
+          <StatBar statValue={pokemonData.defense} maxValue={250} />
         </div>
         <div>
           <label htmlFor="speed">Speed:</label>
@@ -185,7 +183,8 @@ const Form = () => {
             value={pokemonData.speed}
             onChange={handleChange}
           />
-          <span>{errors.speed}</span>
+          <p>{errors.speed}</p>
+          <StatBar statValue={pokemonData.speed} maxValue={190} />
         </div>
         <div>
           <label htmlFor="height">Height:</label>
@@ -195,7 +194,7 @@ const Form = () => {
             value={pokemonData.height}
             onChange={handleChange}
           />
-          <span>{errors.height}</span>
+          <p>{errors.height}</p>
         </div>
         <div>
           <label htmlFor="weight">Weight:</label>
@@ -205,7 +204,7 @@ const Form = () => {
             value={pokemonData.weight}
             onChange={handleChange}
           />
-          <span>{errors.weight}</span>
+          <p>{errors.weight}</p>
         </div>
         <div>
           <label htmlFor="types">Type 1:</label>
@@ -242,6 +241,7 @@ const Form = () => {
       <div className={styles.uploadedImg}>
         {imageUrl && <img src={imageUrl} alt="Pokemon" />}
       </div>
+    </div>
     </div>
   );
 };

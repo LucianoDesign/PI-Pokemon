@@ -33,7 +33,7 @@ export default function Nav() {
             location.pathname === PathRoutes.FORM ? styles.activeLink : ""
           }
         >
-          Form
+          Create
         </Link>
         <Link
           to={PathRoutes.LANDING}

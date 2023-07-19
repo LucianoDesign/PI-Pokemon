@@ -16,7 +16,8 @@
   text-align: center;
   display: inline-block;
   margin: 5px;
-  font-weight: bold;
+  font-weight:bold;
+  font-size: 0.7em;
   padding: 10px 5px 10px 10px;
   background-color: var(--primary-color);
   text-shadow: -1px -1px black, 1px 1px white;
@@ -42,6 +43,3 @@
   top: 0.3em;
 }
 
-.pagination .buttonActive:hover {
-  background-color: #555;
-}

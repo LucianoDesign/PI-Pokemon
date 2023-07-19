@@ -9,48 +9,47 @@
 }
 
 
-.statButton{
+.statButton {
     padding-left: 0 !important;
-    text-shadow: 1px 1px pink, -1px -1px maroon;
-    line-height: 2em;
+    text-shadow: 1px 1px #9f00ff, -1px -1px #4b0082;
+    line-height: 3em;
     text-align: center;
     display: inline-block;
-    width: 2em;
-    -webkit-border-radius: .75em;
-    -moz-border-radius: .75em;
-    -o-border-radius: .75em;
-        border-radius: 1em;
-    background-color: red;
-    -webkit-box-shadow:  0 .2em maroon;
-    -moz-box-shadow:  0 .2em maroon;
-    -o-box-shadow:  0 .2em maroon;
-    box-shadow:  0 .2em maroon;
-    color: red;
+    width: 3em;
+    -webkit-border-radius: 0.75em;
+    -moz-border-radius: 0.75em;
+    -o-border-radius: 0.75em;
+    border-radius: 2em;
+    background-color: #8a2be2;
+    background-image: -o-linear-gradient(left top, #9f00ff 3%, #8a2be2 22%, #4b0082 99%);
+    background-image: -moz-linear-gradient(left top, #9f00ff 3%, #8a2be2 22%, #4b0082 99%);
+    background-image: -webkit-linear-gradient(left top, #9f00ff 3%, #8a2be2 22%, #4b0082 99%);
+    background-image: linear-gradient(left top, #9f00ff 3%, #8a2be2 22%, #4b0082 99%);
+    -webkit-box-shadow: 0 0.2em #4b0082;
+    -moz-box-shadow: 0 0.2em #4b0082;
+    -o-box-shadow: 0 0.2em #4b0082;
+    box-shadow: 0 0.2em #4b0082;
+    color: #8a2be2;
     margin: 6px;
-    background-color: red;
-    background-image: -o-linear-gradient(left top, pink 3%, red 22%, maroon 99%);
-    background-image: -moz-linear-gradient(left top, pink 3%, red 22%, maroon 99%);
-    background-image: -webkit-linear-gradient(left top, pink 3%, red 22%, maroon 99%);
-    background-image: linear-gradient(left top, pink 3%, red 22%, maroon 99%);
     cursor: pointer;
-  padding-left: 5px;
-}
-.statButtonOn {
+    padding-left: 5px;
+  }
+  .statButtonOn {
     padding-left: 0 !important;
     text-shadow: 1px 1px lime, -1px -1px darkgreen;
-    line-height: 2em;
+    line-height: 3em;
     text-align: center;
     display: inline-block;
-    width: 2em;
-    -webkit-border-radius: .75em;
-    -moz-border-radius: .75em;
-    -o-border-radius: .75em;
-    border-radius: 1em;
+    width: 3em;
+    -webkit-border-radius: 0.75em;
+    -moz-border-radius: 0.75em;
+    -o-border-radius: 0.75em;
+    border-radius: 2em;
     background-color: green;
-    -webkit-box-shadow: 0 .2em darkgreen;
-    -moz-box-shadow: 0 .2em darkgreen;
-    -o-box-shadow: 0 .2em darkgreen;
-    box-shadow: 0 .2em darkgreen;
+    -webkit-box-shadow: 0 0.2em darkgreen, 0 0 8px lime;
+    -moz-box-shadow: 0 0.2em darkgreen, 0 0 8px lime;
+    -o-box-shadow: 0 0.2em darkgreen, 0 0 8px lime;
+    box-shadow: 0 0.2em darkgreen, 0 0 8px lime;
     color: green;
     margin: 6px;
     background-color: green;
@@ -60,11 +59,28 @@
     background-image: linear-gradient(left top, lime 3%, green 22%, darkgreen 99%);
     cursor: pointer;
     padding-left: 5px;
-}
+    animation: glowEffect 1s infinite;
+  }
+  
+  @keyframes glowEffect {
+    0%, 100% {
+      -webkit-box-shadow: 0 0.2em darkgreen, 0 0 12px lime;
+      -moz-box-shadow: 0 0.2em darkgreen, 0 0 12px lime;
+      -o-box-shadow: 0 0.2em darkgreen, 0 0 12px lime;
+      box-shadow: 0 0.2em darkgreen, 0 0 12px lime;
+    }
+    50% {
+      -webkit-box-shadow: 0 0.2em darkgreen, 0 0 16px lime;
+      -moz-box-shadow: 0 0.2em darkgreen, 0 0 16px lime;
+      -o-box-shadow: 0 0.2em darkgreen, 0 0 16px lime;
+      box-shadow: 0 0.2em darkgreen, 0 0 16px lime;
+    }
+  }
 .videoGameButton{
     font-family: "StartUp";
     text-align: center;
 	display: inline-block;
+    width: 6em;
 	margin:5px;
     font-weight: bold;
     padding: 10px 5px 10px 10px ;

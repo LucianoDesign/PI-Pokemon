@@ -1,15 +1,44 @@
-.FormBox span {
-    
-    margin-left:20px;
-    color: rgb(208, 29, 29);
-    
-    
+.formTitle{
+    margin-top: 100px;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+
 }
-.uploadedImg img{
+.FormBox{
+    margin-top: 50px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+.uploadedImg {
+    display: flex;
+    justify-content: center;
     width: 400px;
 }
+.uploadedImg img{
+    width: 70%;
+    border-radius: 40px;
+}
+.FormBox p {
+    position: absolute;
+    display: flex;
+    margin-left:20px;
+    color: rgb(208, 29, 29);
+    font-size: 0.7em;
+    left: 23%;
+}
 
-.FormBox{
-    margin-top: 100px;
-    color: white;
+.FormBox form{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 400px;
+}
+
+.FormBox input {
+    display: flex;
 }
