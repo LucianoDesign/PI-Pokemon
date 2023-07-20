@@ -1,19 +1,22 @@
 @import url('../../index.css');
 .sortContainer{
-    margin-top: 20px;
+    margin-top: 30px;
     display: flex;
     align-items: center;
     margin-left: auto;
     justify-content: space-evenly;
     width: 80vw;
+    margin-top: 90px;
+}
+.iconStat{
+  width: 1.5em;
 }
 
-
 .statButton {
-    padding-left: 0 !important;
+    padding-left: 0 ;
+    padding-top: 10px;
     text-shadow: 1px 1px #9f00ff, -1px -1px #4b0082;
     line-height: 3em;
-    text-align: center;
     display: inline-block;
     width: 3em;
     -webkit-border-radius: 0.75em;
@@ -30,37 +33,35 @@
     -o-box-shadow: 0 0.2em #4b0082;
     box-shadow: 0 0.2em #4b0082;
     color: #8a2be2;
-    margin: 6px;
     cursor: pointer;
-    padding-left: 5px;
+    
   }
   .statButtonOn {
-    padding-left: 0 !important;
-    text-shadow: 1px 1px lime, -1px -1px darkgreen;
+    padding-top: 10px;
+    padding-left: 0;
+    text-shadow: 1px 1px cyan, -1px -1px darkblue;
     line-height: 3em;
-    text-align: center;
     display: inline-block;
     width: 3em;
     -webkit-border-radius: 0.75em;
     -moz-border-radius: 0.75em;
     -o-border-radius: 0.75em;
     border-radius: 2em;
-    background-color: green;
-    -webkit-box-shadow: 0 0.2em darkgreen, 0 0 8px lime;
-    -moz-box-shadow: 0 0.2em darkgreen, 0 0 8px lime;
-    -o-box-shadow: 0 0.2em darkgreen, 0 0 8px lime;
-    box-shadow: 0 0.2em darkgreen, 0 0 8px lime;
-    color: green;
-    margin: 6px;
-    background-color: green;
-    background-image: -o-linear-gradient(left top, lime 3%, green 22%, darkgreen 99%);
-    background-image: -moz-linear-gradient(left top, lime 3%, green 22%, darkgreen 99%);
-    background-image: -webkit-linear-gradient(left top, lime 3%, green 22%, darkgreen 99%);
-    background-image: linear-gradient(left top, lime 3%, green 22%, darkgreen 99%);
+    background-color: cyan;
+    -webkit-box-shadow: 0 0.2em darkblue, 0 0 8px cyan;
+    -moz-box-shadow: 0 0.2em darkblue, 0 0 8px cyan;
+    -o-box-shadow: 0 0.2em darkblue, 0 0 8px cyan;
+    box-shadow: 0 0.2em darkblue, 0 0 8px cyan;
+    color: cyan;
+    background-color: cyan;
+    background-image: -o-linear-gradient(left top, cyan 3%, cyan 22%, darkblue 99%);
+    background-image: -moz-linear-gradient(left top, cyan 3%, cyan 22%, darkblue 99%);
+    background-image: -webkit-linear-gradient(left top, cyan 3%, cyan 22%, darkblue 99%);
+    background-image: linear-gradient(left top, cyan 3%, cyan 22%, darkblue 99%);
     cursor: pointer;
-    padding-left: 5px;
     animation: glowEffect 1s infinite;
   }
+  
   
   @keyframes glowEffect {
     0%, 100% {

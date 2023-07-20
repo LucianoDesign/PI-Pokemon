@@ -23,6 +23,9 @@ a {
   text-decoration: none;
   color: #000;
 }
+input{
+  font-family: "PixelFont";
+}
 button{
   background: none;
   border: none;

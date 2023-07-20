@@ -32,7 +32,10 @@
   transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
   
 }
-
+.divCardContainer h4 {
+  padding: auto;
+  font-size: 0.8em;
+}
 .divCardContainer img {
   width: 90px;
   filter: brightness(30%);

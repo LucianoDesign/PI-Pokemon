@@ -2,6 +2,15 @@ import  { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./SortByProperty.module.css";
 import { sortPokemons } from "../../redux/actions";
+import sword from "../../assets/sword.svg";
+import sword2 from "../../assets/sword2.svg";
+import shield from "../../assets/shield.svg";
+import shield2 from "../../assets/shield2.svg"
+import thunder from "../../assets/thunder.svg";
+import thunder2 from "../../assets/thunder2.svg"
+import heart from "../../assets/heart.svg";
+import heart2 from "../../assets/heart2.svg"
+
 
 const SortByProperty = () => {
   const dispatch = useDispatch();
@@ -84,7 +93,9 @@ const SortByProperty = () => {
         }
         onClick={handleAttackSort}
       >
-        A
+        { attackButtonActive ? <img src={sword2} alt="attack" className={styles.iconStat}/> : <img src={sword} alt="attack" className={styles.iconStat}/>}
+        
+
       </button>
       <button
         title="Defense"
@@ -93,7 +104,8 @@ const SortByProperty = () => {
         }
         onClick={handleDefenseSort}
       >
-        D
+        { defenseButtonActive ? <img src={shield2} alt="attack" className={styles.iconStat}/> : <img src={shield} alt="attack" className={styles.iconStat}/>}
+        
       </button>
       <button
         title="Speed"
@@ -102,7 +114,8 @@ const SortByProperty = () => {
         }
         onClick={handleSpeedSort}
       >
-        S
+        {speedButtonActive ? <img src={thunder2} alt="attack" className={styles.iconStat}/> : <img src={thunder} alt="attack" className={styles.iconStat}/>}
+        
       </button>
       <button
         title="HP"
@@ -111,7 +124,8 @@ const SortByProperty = () => {
         }
         onClick={handleHpSort}
       >
-        H
+        {hpButtonActive ? <img src={heart2} alt="attack" className={styles.iconStat}/> : <img src={heart} alt="attack" className={styles.iconStat}/>}
+         
       </button>
     </div>
   );

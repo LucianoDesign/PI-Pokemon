@@ -3,7 +3,6 @@
 .detailContent {
   display: flex;
   width: 100%;
-  color: white;
   justify-content: space-evenly;
   align-items: center;
   background-color: rgb(56, 58, 53);

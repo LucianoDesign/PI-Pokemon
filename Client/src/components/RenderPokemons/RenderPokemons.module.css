@@ -1,6 +1,6 @@
 .noMatch{
     display: flex;
-    background-color: red;
+    color: red;
     flex-direction: row;
     justify-content: center;
     align-items: center;

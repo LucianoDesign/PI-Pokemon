@@ -114,12 +114,14 @@ const Form = () => {
   };
 
   return (
-    <div>
+    <div className={styles.crt}>
 
+    <div className={styles.formContainer}>
     <div className={styles.formTitle}>
       <h2>Create a new Pokemon</h2>
 
     </div>
+
     <div className={styles.FormBox}>
       <form onSubmit={handleSubmit}>
         <div>
@@ -206,7 +208,7 @@ const Form = () => {
           />
           <p>{errors.weight}</p>
         </div>
-        <div>
+        <div className={styles.typesDiv}>
           <label htmlFor="types">Type 1:</label>
           <select
             id="type1"
@@ -238,6 +240,7 @@ const Form = () => {
         </div>
         <button type="submit">Create Pokemon</button>
       </form>
+    </div>
       <div className={styles.uploadedImg}>
         {imageUrl && <img src={imageUrl} alt="Pokemon" />}
       </div>
