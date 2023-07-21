@@ -32,6 +32,9 @@ const Form = () => {
     types: "",
   });
 
+
+
+
   const handleChange = async (event) => {
     const property = event.target.name;
     const value = event.target.value;
@@ -75,10 +78,10 @@ const Form = () => {
   const handleTypeChange = (e) => {
     const { name, value } = e.target;
   
-    // Obtener los tipos actuales
+    /* Obtain types */
     const [type1, type2] = pokemonData.types;
   
-    // Actualizar los tipos según el nombre del campo
+    // update types based on type value
     let updatedTypes;
     if (name === "type1") {
       updatedTypes = [value, type2];
@@ -86,8 +89,8 @@ const Form = () => {
       updatedTypes = [type1, value];
     }
   
-    // Actualizar los tipos solo si ambos están seleccionados
-    // o si al menos uno de ellos está seleccionado
+    /* update types only if one of them are selected or none is selected */
+    
     if (type1 || type2 || value !== "") {
       setPokemonData((prevData) => ({
         ...prevData,
@@ -98,8 +101,14 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    const emptyField = Object.values(pokemonData).some((data) => data === "");
+    /* If some field is empty returns a window alert */
+    const hasType1 = pokemonData.types[0] === "";
+    const hasType2 = pokemonData.types[1] === "";
+    if (hasType1 || hasType2 ) {
+      window.alert("Please select at least one Pokémon type.");
+      return;
+    }
+    const emptyField = Object.values(pokemonData).some((data) => data === "" || data === 0);
     if (emptyField) {
       window.alert("All fields must be completed");
       return;
@@ -110,7 +119,8 @@ const Form = () => {
       return;
     }
     dispatch(postPokemon(pokemonData));
-    window.alert("pokemon created");
+    
+    
   };
 
   return (
@@ -129,7 +139,7 @@ const Form = () => {
           <input
             id="name"
             name="name"
-            value={pokemonData.name}
+            value={pokemonData.name.toLowerCase()}
             onChange={handleChange}
           />
           <p>{errors.name}</p>
@@ -238,7 +248,7 @@ const Form = () => {
             ))}
           </select>
         </div>
-        <button type="submit">Create Pokemon</button>
+        <button type="submit" >Create Pokemon</button>
       </form>
     </div>
       <div className={styles.uploadedImg}>

@@ -1,20 +1,29 @@
 const { default: axios } = require("axios");
+const { getStats } = require("../utils/utils");
 
 const URL = "https://pokeapi.co/api/v2/pokemon/";
 
 const getPokeByName = async (req, res) => {
   try {
-    const { namePoke } = req.query;
+    const { name: namePoke } = req.query;
 
     const { data } = await axios.get(URL + namePoke.toLowerCase().trim());
-    const { id, name, sprites } = data;
+    const stats = data.stats;
+    const { id, name, sprites, weight, height } = data;
     const types = data.types.map((type) => type.type.name);
+    const { attack, defense, speed, hp } = getStats(stats);
 
     const pokemon = {
       id,
       name,
-      imagen: sprites.other["official-artwork"].front_default,
+      image: sprites.other["official-artwork"].front_default,
       type: types,
+      attack,
+      defense,
+      speed,
+      hp,
+      weight,
+      height,
     };
 
     if (pokemon.name) {

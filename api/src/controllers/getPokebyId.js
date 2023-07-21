@@ -3,7 +3,7 @@ const { default: axios } = require("axios");
 const URL = "https://pokeapi.co/api/v2/pokemon/";
 const { getStats } = require("../utils/utils");
 
-// Función para obtener un Pokémon de la base de datos
+/* Getting database pokemon */
 const getPokemonFromDB = async (id) => {
   return Pokemon.findByPk(id, { include: Type });
 };
@@ -38,12 +38,12 @@ const getPokemonFromAPI = async (_id) => {
 };
 
 const getPokeById = async (req, res) => {
+  
   try {
     const id = req.params.id;
-
     let pokemon;
-
-    if (id.length > 8) {
+    const validUUIDRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+    if (validUUIDRegex.test(id)) {
       // Obtener el Pokémon de la base de datos
       pokemon = await getPokemonFromDB(id);
     } else {

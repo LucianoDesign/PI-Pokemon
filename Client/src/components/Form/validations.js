@@ -37,3 +37,6 @@ export const validateImage = async (url) => {
   
     return statValue < min || statValue > max ? `Invalid ${stat} value. It should be between ${min} and ${max}.` : "";
   };
+
+
+ 

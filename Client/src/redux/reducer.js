@@ -9,6 +9,7 @@ import {
   RESET_FILTERED_POKEMONS,
   UPDATE_SELECTED_TYPES,
   POST_POKEMON,
+  FILTER_CREATED_POKEMONS
 } from "./actionTypes";
 
 const initialState = {
@@ -84,20 +85,24 @@ const rootReducer = (state = initialState, action) => {
 
       const sortByProperty = (property, order) => {
         const compareFunction = (a, b) => {
-          if (
-            typeof a[property] === "string" &&
-            typeof b[property] === "string"
-          ) {
+          // Handle special case for sorting by ID
+          if (property === 'id') {
+            // Convert the ID to a number for comparison
+            const idA = parseInt(a.id);
+            const idB = parseInt(b.id);
+            return order ? idA - idB : idB - idA;
+          }
+      
+          // Handle sorting for other properties
+          if (typeof a[property] === 'string' && typeof b[property] === 'string') {
             return order
               ? a[property].localeCompare(b[property])
               : b[property].localeCompare(a[property]);
           } else {
-            return order
-              ? a[property] - b[property]
-              : b[property] - a[property];
+            return order ? a[property] - b[property] : b[property] - a[property];
           }
         };
-
+      
         sortedPokemons.sort(compareFunction);
         sortedFilteredPokemons.sort(compareFunction);
         sortedpokemonByNames.sort(compareFunction);
@@ -150,6 +155,20 @@ const rootReducer = (state = initialState, action) => {
         filteredPokemons: sortedFilteredPokemons,
         sortOrder,
       };
+    case FILTER_CREATED_POKEMONS:
+      
+        const filteredCreated = state.pokemons.filter((pokemon)=> {
+          return pokemon.id.length > 12;
+        });
+        const TotalCreatedPages = Math.ceil(
+          filteredCreated.length / state.pokemonsPerPage
+        );
+        return {
+          ...state,
+          filteredPokemons: filteredCreated,
+          totalPages: TotalCreatedPages,
+          currentPage: 1,
+        };
 
     case FILTER_POKEMONS_BY_TYPE:
       const selectedTypes = action.payload;

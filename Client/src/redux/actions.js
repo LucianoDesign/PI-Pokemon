@@ -11,6 +11,7 @@ import {
   RESET_FILTERED_POKEMONS,
   UPDATE_SELECTED_TYPES,
   POST_POKEMON,
+  FILTER_CREATED_POKEMONS,
 } from "./actionTypes";
 
 
@@ -33,12 +34,24 @@ export const postPokemon = (pokemonData) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post("/pokemons", pokemonData);
-      return dispatch({
+      dispatch({
         type: POST_POKEMON,
         payload: data,
       });
+      if (data) {
+        window.alert("Pokemon created");
+      }
+      
     } catch (error) {
-      console.log(error.message);
+      if (error.response) {
+        console.log("Error status:", error.response.status);
+        console.log("Error data:", error.response.data);
+        window.alert(error.response.data.message || "check url length from image field")
+      } else if (error.request) {
+        console.log("Error request:", error.request);
+      } else {
+        console.log("Error message:", error.message);
+      }
     }
   };
 };
@@ -57,17 +70,25 @@ export const loadPokemonTypes = () => {
   };
 };
 export const loadPokemonName = (name) => {
+
   const formattedName = name.toLowerCase().trim();
+  console.log(name)
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/${formattedName}`);
+      const { data } = await axios.get(`?name=${formattedName}`);
 
       return dispatch({
         type: SET_POKEMON_NAME,
         payload: data,
       });
     } catch (error) {
-      console.log("Nombre o ID invalido");
+      if (error.response && error.response.status === 404) {
+       
+        alert("Pokemon not found. Please try again with a different name.");
+      } else {
+
+        alert("An error occurred. Please try again later.");
+      }
     }
   };
 };
@@ -92,6 +113,10 @@ export const filterPokemonsByType = (selectedTypes) => ({
   type: FILTER_POKEMONS_BY_TYPE,
   payload: selectedTypes,
 });
+
+export const filterCreatedPokemons = () => ({
+  type: FILTER_CREATED_POKEMONS,
+})
 
 export const resetFilteredPokemons = () => ({
   type: RESET_FILTERED_POKEMONS,

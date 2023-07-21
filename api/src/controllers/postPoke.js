@@ -15,8 +15,9 @@ const postPoke = async (req, res) => {
       !height ||
       !weight
     ) {
-      return res.status(404).json({ message: "Missing data" });
+      return res.status(400).json({ message: "Missing data" });
     }
+    
 
     const pokemon = await Pokemon.findOrCreate({
       where: { name },
@@ -34,7 +35,7 @@ const postPoke = async (req, res) => {
     const [createdPokemon, created] = pokemon;
 
     if (!created) {
-      return res.status(400).json({ message: "Pokemon already exists" });
+      return res.status(409).json({ message: "Pokemon already exists" });
     }
 
     // Asociar los tipos al Pokémon creado
@@ -49,11 +50,11 @@ const postPoke = async (req, res) => {
       ...createdPokemon.toJSON(),
       type: associatedTypes.map((type) => type.name),
     };
-    console.log(response)
-    return res.status(200).json(response);
+    return res.status(201).json(response);
   } catch (error) {
+    console.log("Error:", error.message);
     res.status(500).json({ error: error.message });
   }
 };
-/* S */
+
 module.exports = { postPoke };

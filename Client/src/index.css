@@ -11,7 +11,7 @@ html, body{
   height: 100%;
   font-family: "PixelFont";
   user-select: none;
-  
+  scroll-behavior: smooth;
   background-image: linear-gradient(var(--background-color) 60%, var(--primary-color) 100%);
   background-repeat: no-repeat;
   background-size: 100% auto;

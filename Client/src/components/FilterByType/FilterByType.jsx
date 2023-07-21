@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   filterPokemonsByType,
+  filterCreatedPokemons,
   resetFilteredPokemons,
   updateSelectedTypes,
 } from "../../redux/actions";
@@ -12,7 +13,9 @@ const FilterByType = () => {
   const pokemonTypes = useSelector((state) => state.types);
   const pokemonByName = useSelector((state) => state.pokemonByName);
   const selectedTypes = useSelector((state) => state.selectedTypes);
+  const [isCreatedChecked, setIsCreatedChecked] = useState(false);
   const [shouldResetFiltered, setShouldResetFiltered] = useState(false);
+  
 
   useEffect(() => {
     if (selectedTypes.length > 0) {
@@ -23,6 +26,13 @@ const FilterByType = () => {
       }
     }
   }, [dispatch, selectedTypes, shouldResetFiltered]);
+
+  /* useEffect(() => {
+    if (!isCreatedChecked) {
+      // Aquí reseteas el filtro cuando isCreatedChecked se desmarca
+      dispatch(resetFilteredPokemons());
+    }
+  }, [isCreatedChecked, dispatch]); */
 
   const handleTypeChange = (e) => {
     const { value, checked } = e.target;
@@ -37,10 +47,29 @@ const FilterByType = () => {
     }
     setShouldResetFiltered(!checked);
   };
+  const handleCreatedChange = (e) => {
+    setIsCreatedChecked(e.target.checked);
+    if (e.target.checked) {
+      dispatch(filterCreatedPokemons());
+    } else{
+      dispatch(resetFilteredPokemons());
+    }
+  };
 
   return (
     <div className={styles.crt}>
       <div className={styles.filterContent}>
+        <h4>Filter by:</h4>
+        <label>
+          <input
+            className={styles.filterInputs}
+            type="checkbox"
+            value="created"
+            checked={isCreatedChecked} // Use the state here
+            onChange={handleCreatedChange} // Call the handler on change
+          />
+          *created*
+        </label>
         <h4>Filter by type:</h4>
         {pokemonTypes.map((type) => (
           <label key={type.name}>
