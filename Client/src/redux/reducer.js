@@ -9,7 +9,7 @@ import {
   RESET_FILTERED_POKEMONS,
   UPDATE_SELECTED_TYPES,
   POST_POKEMON,
-  FILTER_CREATED_POKEMONS
+  FILTER_CREATED_POKEMONS,
 } from "./actionTypes";
 
 const initialState = {
@@ -83,26 +83,41 @@ const rootReducer = (state = initialState, action) => {
       let sortedFilteredPokemons = [...state.filteredPokemons];
       let sortedpokemonByNames = [...state.pokemonByName];
 
+      const compareValues = (valueA, valueB) => {
+        // Check if the values are numbers
+        const isNumber = (value) => !isNaN(value);
+
+        // Check if the values are UUIDs
+        const isUUID = (value) =>
+          /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+            value
+          );
+
+        if (isNumber(valueA) && isNumber(valueB)) {
+          return valueA - valueB;
+        } else if (isUUID(valueA) && isUUID(valueB)) {
+          // Convert UUIDs to lowercase for proper comparison
+          const uuidA = valueA.toLowerCase();
+          const uuidB = valueB.toLowerCase();
+          return uuidA.localeCompare(uuidB);
+        } else {
+          return String(valueA).localeCompare(String(valueB));
+        }
+      };
+
       const sortByProperty = (property, order) => {
         const compareFunction = (a, b) => {
-          // Handle special case for sorting by ID
-          if (property === 'id') {
-            // Convert the ID to a number for comparison
-            const idA = parseInt(a.id);
-            const idB = parseInt(b.id);
-            return order ? idA - idB : idB - idA;
+          if (property === "id") {
+            const idA = a.id;
+            const idB = b.id;
+            return order ? compareValues(idA, idB) : compareValues(idB, idA);
           }
-      
-          // Handle sorting for other properties
-          if (typeof a[property] === 'string' && typeof b[property] === 'string') {
-            return order
-              ? a[property].localeCompare(b[property])
-              : b[property].localeCompare(a[property]);
-          } else {
-            return order ? a[property] - b[property] : b[property] - a[property];
-          }
+
+          return order
+            ? compareValues(a[property], b[property])
+            : compareValues(b[property], a[property]);
         };
-      
+
         sortedPokemons.sort(compareFunction);
         sortedFilteredPokemons.sort(compareFunction);
         sortedpokemonByNames.sort(compareFunction);
@@ -156,19 +171,18 @@ const rootReducer = (state = initialState, action) => {
         sortOrder,
       };
     case FILTER_CREATED_POKEMONS:
-      
-        const filteredCreated = state.pokemons.filter((pokemon)=> {
-          return pokemon.id.length > 12;
-        });
-        const TotalCreatedPages = Math.ceil(
-          filteredCreated.length / state.pokemonsPerPage
-        );
-        return {
-          ...state,
-          filteredPokemons: filteredCreated,
-          totalPages: TotalCreatedPages,
-          currentPage: 1,
-        };
+      const filteredCreated = state.pokemons.filter((pokemon) => {
+        return pokemon.id.length > 12;
+      });
+      const TotalCreatedPages = Math.ceil(
+        filteredCreated.length / state.pokemonsPerPage
+      );
+      return {
+        ...state,
+        filteredPokemons: filteredCreated,
+        totalPages: TotalCreatedPages,
+        currentPage: 1,
+      };
 
     case FILTER_POKEMONS_BY_TYPE:
       const selectedTypes = action.payload;

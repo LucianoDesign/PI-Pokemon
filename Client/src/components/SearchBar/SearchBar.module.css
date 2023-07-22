@@ -65,13 +65,13 @@
 }
 @media screen and (max-width: 1024px) {
     .searchBox {
-        right: 40% ;
+        right: 18% ;
       }
   
 }
 @media screen and (max-width: 768px) {
   .searchBox {
-    right: 50%;
+    right: 20%;
   }
   
   .searchBox.active > .searchInput {

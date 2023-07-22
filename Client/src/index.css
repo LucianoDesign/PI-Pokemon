@@ -23,7 +23,7 @@ a {
   text-decoration: none;
   color: #000;
 }
-input{
+input, select{
   font-family: "PixelFont";
 }
 button{

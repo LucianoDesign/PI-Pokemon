@@ -97,3 +97,32 @@
 	position: relative;
 	top: .3em;
 }
+@media screen and (max-width: 768px) {
+  .sortContainer{
+    
+    margin-left: none;
+    justify-content: space-evenly;
+    width: 100%;
+}
+}
+@media screen and (max-width: 575px) {
+  .sortContainer{
+    
+    margin-top: 140px;
+    
+}
+}
+@media screen and (max-width: 320px) {
+  .videoGameButton{
+    font-size: 0.7em;
+    
+}
+.statButton{
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.statButtonOn{
+  margin-right: 5px;
+  margin-left: 5px;
+}
+}

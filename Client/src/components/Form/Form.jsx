@@ -4,6 +4,10 @@ import { validateName, validateImage, validateStats } from "./validations";
 import { postPokemon } from "../../redux/actions";
 import StatBar from "../StatBar/StatBar";
 import styles from "./Form.module.css";
+import sword2 from "../../assets/sword2.svg";
+import heart2 from "../../assets/heart2.svg";
+import shield2 from "../../assets/shield2.svg";
+import thunder2 from "../../assets/thunder2.svg"
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -118,7 +122,10 @@ const Form = () => {
       window.alert("Wrong data, try again");
       return;
     }
-    dispatch(postPokemon(pokemonData));
+    dispatch(postPokemon({
+      ...pokemonData,
+      name: pokemonData.name.toLowerCase().trim()
+    }));
     
     
   };
@@ -133,13 +140,13 @@ const Form = () => {
     </div>
 
     <div className={styles.FormBox}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} id="pokemonForm">
         <div>
           <label htmlFor="name">Name:</label>
           <input
             id="name"
             name="name"
-            value={pokemonData.name.toLowerCase()}
+            value={pokemonData.name}
             onChange={handleChange}
           />
           <p>{errors.name}</p>
@@ -159,44 +166,47 @@ const Form = () => {
           <input
             id="hp"
             name="hp"
+            type="number"
             value={pokemonData.hp}
             onChange={handleChange}
           />
           <p>{errors.hp}</p>
-          <StatBar statValue={pokemonData.hp} maxValue={255} />
+          
         </div>
         <div>
           <label htmlFor="attack">Attack:</label>
           <input
             id="attack"
+            type="number"
             name="attack"
             value={pokemonData.attack}
             onChange={handleChange}
           />
           <p>{errors.attack}</p>
-          <StatBar statValue={pokemonData.attack} maxValue={200} />
         </div>
         <div>
           <label htmlFor="defense">Defense:</label>
           <input
             id="defense"
+            type="number"
             name="defense"
             value={pokemonData.defense}
             onChange={handleChange}
           />
           <p>{errors.defense}</p>
-          <StatBar statValue={pokemonData.defense} maxValue={250} />
+          
         </div>
         <div>
           <label htmlFor="speed">Speed:</label>
           <input
             id="speed"
+            type="number"
             name="speed"
             value={pokemonData.speed}
             onChange={handleChange}
           />
           <p>{errors.speed}</p>
-          <StatBar statValue={pokemonData.speed} maxValue={190} />
+          
         </div>
         <div>
           <label htmlFor="height">Height:</label>
@@ -248,12 +258,46 @@ const Form = () => {
             ))}
           </select>
         </div>
-        <button type="submit" >Create Pokemon</button>
+       
+        
       </form>
     </div>
+    <div className={styles.statsDivContainer}>
+    <div className={styles.statDiv}>
+          
+          <img src={heart2} alt="hp" className={styles.iconStat}/>
+          <StatBar statValue={pokemonData.hp} maxValue={255} />
+
+      </div>
+      <div className={styles.statDiv}>
+          
+          <img src={sword2} alt="attack" className={styles.iconStat}/>
+          <StatBar statValue={pokemonData.attack} maxValue={200}/>
+
+      </div>
+      <div className={styles.statDiv}>
+          
+          <img src={shield2} alt="defense" className={styles.iconStat}/>
+          <StatBar statValue={pokemonData.defense} maxValue={250} />
+
+      </div>
+      <div className={styles.statDiv}>
+          
+          <img src={thunder2} alt="attack" className={styles.iconStat}/>
+          <StatBar statValue={pokemonData.speed} maxValue={190} />
+
+      </div>
+      
+           
+           
+          
+          
+          <button className={styles.submitButton}type="submit" form="pokemonForm" >Create Pokemon</button>
+          </div>
       <div className={styles.uploadedImg}>
         {imageUrl && <img src={imageUrl} alt="Pokemon" />}
       </div>
+     
     </div>
     </div>
   );

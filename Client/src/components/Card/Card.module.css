@@ -39,6 +39,8 @@
 .divCardContainer img {
   width: 90px;
   filter: brightness(30%);
+  max-height: 120px;
+  max-width: 100px;
 }
 .divCardContainer:hover img{
     width: 90px;
@@ -56,4 +58,23 @@ ul {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .divCardContainer{
+     
+    width: 120px;
+    height: 190px
+  
+  }
+  .divCardContainer img {
+    width: 80px;
+    filter: brightness(90%);
+  }
+  .typesFont li {
+    font-size: 10px;
+  }
+  .divCardContainer h4 {
+    font-size: 0.75em;
+  }
 }

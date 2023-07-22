@@ -1,6 +1,6 @@
 @import url('../../index.css');
 .navContent {
-    background-image: linear-gradient(to left ,var(--primary-color) , var(--secondary-color));
+    background-image: linear-gradient(to left, var(--primary-color), var(--secondary-color));
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -9,6 +9,27 @@
     width: 100%;
     height: 75px;
     z-index: 3;
+    overflow: hidden; 
+}
+
+.navContent::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background: linear-gradient(to right, cyan, white, cyan);
+    animation: electricParticle 3s linear infinite;
+}
+
+@keyframes electricParticle {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
 }
 .navLinks{
     margin-right: 40px;
@@ -22,4 +43,10 @@
 }
 .reactPlayer{
     margin-left: auto;
+}
+
+@media screen and (max-width: 768px) {
+    .navLinks a{
+        padding-left: 40px;
+    }
 }
