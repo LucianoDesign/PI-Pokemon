@@ -7,7 +7,7 @@ import styles from "./Form.module.css";
 import sword2 from "../../assets/sword2.svg";
 import heart2 from "../../assets/heart2.svg";
 import shield2 from "../../assets/shield2.svg";
-import thunder2 from "../../assets/thunder2.svg"
+import thunder2 from "../../assets/thunder2.svg";
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -35,9 +35,6 @@ const Form = () => {
     weight: "",
     types: "",
   });
-
-
-
 
   const handleChange = async (event) => {
     const property = event.target.name;
@@ -81,10 +78,10 @@ const Form = () => {
 
   const handleTypeChange = (e) => {
     const { name, value } = e.target;
-  
+
     /* Obtain types */
     const [type1, type2] = pokemonData.types;
-  
+
     // update types based on type value
     let updatedTypes;
     if (name === "type1") {
@@ -92,9 +89,9 @@ const Form = () => {
     } else if (name === "type2") {
       updatedTypes = [type1, value];
     }
-  
+
     /* update types only if one of them are selected or none is selected */
-    
+
     if (type1 || type2 || value !== "") {
       setPokemonData((prevData) => ({
         ...prevData,
@@ -108,11 +105,13 @@ const Form = () => {
     /* If some field is empty returns a window alert */
     const hasType1 = pokemonData.types[0] === "";
     const hasType2 = pokemonData.types[1] === "";
-    if (hasType1 || hasType2 ) {
+    if (hasType1 || hasType2) {
       window.alert("Please select at least one Pokémon type.");
       return;
     }
-    const emptyField = Object.values(pokemonData).some((data) => data === "" || data === 0);
+    const emptyField = Object.values(pokemonData).some(
+      (data) => data === "" || data === 0
+    );
     if (emptyField) {
       window.alert("All fields must be completed");
       return;
@@ -122,183 +121,170 @@ const Form = () => {
       window.alert("Wrong data, try again");
       return;
     }
-    dispatch(postPokemon({
-      ...pokemonData,
-      name: pokemonData.name.toLowerCase().trim()
-    }));
-    
-    
+    dispatch(
+      postPokemon({
+        ...pokemonData,
+        name: pokemonData.name.toLowerCase().trim(),
+      })
+    );
   };
 
   return (
     <div className={styles.crt}>
+      <div className={styles.formContainer}>
+        <div className={styles.formTitle}>
+          <h2>Create a new Pokemon</h2>
+        </div>
 
-    <div className={styles.formContainer}>
-    <div className={styles.formTitle}>
-      <h2>Create a new Pokemon</h2>
-
-    </div>
-
-    <div className={styles.FormBox}>
-      <form onSubmit={handleSubmit} id="pokemonForm">
-        <div>
-          <label htmlFor="name">Name:</label>
-          <input
-            id="name"
-            name="name"
-            value={pokemonData.name}
-            onChange={handleChange}
-          />
-          <p>{errors.name}</p>
+        <div className={styles.FormBox}>
+          <form onSubmit={handleSubmit} id="pokemonForm" className={styles.pokemonForm}>
+            <div>
+              <label htmlFor="name">Name:</label>
+              <input
+                id="name"
+                name="name"
+                value={pokemonData.name}
+                onChange={handleChange}
+              />
+              <p>{errors.name}</p>
+            </div>
+            <div>
+              <label htmlFor="image">Image:</label>
+              <input
+                id="image"
+                name="image"
+                value={pokemonData.image}
+                onChange={handleChange}
+              />
+              {errors.image && <p className="error">{errors.image}</p>}
+            </div>
+            <div>
+              <label htmlFor="hp">hp:</label>
+              <input
+                id="hp"
+                name="hp"
+                type="number"
+                value={pokemonData.hp}
+                onChange={handleChange}
+              />
+              <p>{errors.hp}</p>
+            </div>
+            <div>
+              <label htmlFor="attack">Attack:</label>
+              <input
+                id="attack"
+                type="number"
+                name="attack"
+                value={pokemonData.attack}
+                onChange={handleChange}
+              />
+              <p>{errors.attack}</p>
+            </div>
+            <div>
+              <label htmlFor="defense">Defense:</label>
+              <input
+                id="defense"
+                type="number"
+                name="defense"
+                value={pokemonData.defense}
+                onChange={handleChange}
+              />
+              <p>{errors.defense}</p>
+            </div>
+            <div>
+              <label htmlFor="speed">Speed:</label>
+              <input
+                id="speed"
+                type="number"
+                name="speed"
+                value={pokemonData.speed}
+                onChange={handleChange}
+              />
+              <p>{errors.speed}</p>
+            </div>
+            <div>
+              <label htmlFor="height">Height:</label>
+              <input
+                id="height"
+                name="height"
+                value={pokemonData.height}
+                onChange={handleChange}
+              />
+              <p>{errors.height}</p>
+            </div>
+            <div>
+              <label htmlFor="weight">Weight:</label>
+              <input
+                id="weight"
+                name="weight"
+                value={pokemonData.weight}
+                onChange={handleChange}
+              />
+              <p>{errors.weight}</p>
+            </div>
+            <div className={styles.typesDiv}>
+              <label htmlFor="types">Type 1:</label>
+              <select
+                id="type1"
+                name="type1"
+                value={pokemonData.types[0]}
+                onChange={handleTypeChange}
+              >
+                <option value="">Select a type</option>
+                {pokemonTypes.map((type) => (
+                  <option key={type.name} value={type.name}>
+                    {type.name}
+                  </option>
+                ))}
+              </select>
+              <label htmlFor="types">Type 2:</label>
+              <select
+                id="type2"
+                name="type2"
+                value={pokemonData.types[1]}
+                onChange={handleTypeChange}
+              >
+                <option value="">Select a type</option>
+                {pokemonTypes.map((type) => (
+                  <option key={type.name} value={type.name}>
+                    {type.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </form>
         </div>
-        <div>
-          <label htmlFor="image">Image:</label>
-          <input
-            id="image"
-            name="image"
-            value={pokemonData.image}
-            onChange={handleChange}
-          />
-          {errors.image && <p className="error">{errors.image}</p>}
+        <div className={styles.statsDivContainer}>
+        <div className={styles.uploadedImg}>
+          {imageUrl && <img src={imageUrl} alt="Pokemon" />}
         </div>
-        <div>
-          <label htmlFor="hp">hp:</label>
-          <input
-            id="hp"
-            name="hp"
-            type="number"
-            value={pokemonData.hp}
-            onChange={handleChange}
-          />
-          <p>{errors.hp}</p>
-          
-        </div>
-        <div>
-          <label htmlFor="attack">Attack:</label>
-          <input
-            id="attack"
-            type="number"
-            name="attack"
-            value={pokemonData.attack}
-            onChange={handleChange}
-          />
-          <p>{errors.attack}</p>
-        </div>
-        <div>
-          <label htmlFor="defense">Defense:</label>
-          <input
-            id="defense"
-            type="number"
-            name="defense"
-            value={pokemonData.defense}
-            onChange={handleChange}
-          />
-          <p>{errors.defense}</p>
-          
-        </div>
-        <div>
-          <label htmlFor="speed">Speed:</label>
-          <input
-            id="speed"
-            type="number"
-            name="speed"
-            value={pokemonData.speed}
-            onChange={handleChange}
-          />
-          <p>{errors.speed}</p>
-          
-        </div>
-        <div>
-          <label htmlFor="height">Height:</label>
-          <input
-            id="height"
-            name="height"
-            value={pokemonData.height}
-            onChange={handleChange}
-          />
-          <p>{errors.height}</p>
-        </div>
-        <div>
-          <label htmlFor="weight">Weight:</label>
-          <input
-            id="weight"
-            name="weight"
-            value={pokemonData.weight}
-            onChange={handleChange}
-          />
-          <p>{errors.weight}</p>
-        </div>
-        <div className={styles.typesDiv}>
-          <label htmlFor="types">Type 1:</label>
-          <select
-            id="type1"
-            name="type1"
-            value={pokemonData.types[0]}
-            onChange={handleTypeChange}
-          >
-            <option value="">Select a type</option>
-            {pokemonTypes.map((type) => (
-              <option key={type.name} value={type.name}>
-                {type.name}
-              </option>
-            ))}
-          </select>
-          <label htmlFor="types">Type 2:</label>
-          <select
-            id="type2"
-            name="type2"
-            value={pokemonData.types[1]}
-            onChange={handleTypeChange}
-          >
-            <option value="">Select a type</option>
-            {pokemonTypes.map((type) => (
-              <option key={type.name} value={type.name}>
-                {type.name}
-              </option>
-            ))}
-          </select>
-        </div>
-       
-        
-      </form>
-    </div>
-    <div className={styles.statsDivContainer}>
-    <div className={styles.statDiv}>
-          
-          <img src={heart2} alt="hp" className={styles.iconStat}/>
-          <StatBar statValue={pokemonData.hp} maxValue={255} />
-
-      </div>
-      <div className={styles.statDiv}>
-          
-          <img src={sword2} alt="attack" className={styles.iconStat}/>
-          <StatBar statValue={pokemonData.attack} maxValue={200}/>
-
-      </div>
-      <div className={styles.statDiv}>
-          
-          <img src={shield2} alt="defense" className={styles.iconStat}/>
-          <StatBar statValue={pokemonData.defense} maxValue={250} />
-
-      </div>
-      <div className={styles.statDiv}>
-          
-          <img src={thunder2} alt="attack" className={styles.iconStat}/>
-          <StatBar statValue={pokemonData.speed} maxValue={190} />
-
-      </div>
-      
-           
-           
-          
-          
-          <button className={styles.submitButton}type="submit" form="pokemonForm" >Create Pokemon</button>
+          <div className={styles.statDiv}>
+            <img src={heart2} alt="hp" className={styles.iconStat} />
+            <StatBar statValue={pokemonData.hp} maxValue={255} />
           </div>
-      <div className={styles.uploadedImg}>
-        {imageUrl && <img src={imageUrl} alt="Pokemon" />}
+          <div className={styles.statDiv}>
+            <img src={sword2} alt="attack" className={styles.iconStat} />
+            <StatBar statValue={pokemonData.attack} maxValue={200} />
+          </div>
+          <div className={styles.statDiv}>
+            <img src={shield2} alt="defense" className={styles.iconStat} />
+            <StatBar statValue={pokemonData.defense} maxValue={250} />
+          </div>
+          <div className={styles.statDiv}>
+            <img src={thunder2} alt="attack" className={styles.iconStat} />
+            <StatBar statValue={pokemonData.speed} maxValue={190} />
+          </div>
+
+          <button
+            className={styles.submitButton}
+            type="submit"
+            form="pokemonForm"
+          >
+            Create Pokemon
+          </button>
+        
+        </div>
       </div>
-     
-    </div>
     </div>
   );
 };

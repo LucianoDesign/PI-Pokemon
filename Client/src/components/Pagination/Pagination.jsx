@@ -18,8 +18,8 @@ const Pagination = () => {
 
   if (pokemonByName.length > 0) {
     return (
-      <div className={styles.pagination}>
-        <button onClick={handleReset}>Reset</button>
+      <div className={styles.pagination} >
+        <button  style={{ width: '7em' }} onClick={handleReset}>Reset</button>
       </div>
     );
   }

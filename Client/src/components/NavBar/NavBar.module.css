@@ -17,10 +17,10 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
+    width: 200%;
     height: 1.5px;
     background: linear-gradient(to right, cyan, white, cyan);
-    animation: electricParticle 3s linear infinite;
+    animation: electricParticle 1.5s linear infinite;
 }
 
 @keyframes electricParticle {
