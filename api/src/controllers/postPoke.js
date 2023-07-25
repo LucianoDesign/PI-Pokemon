@@ -13,7 +13,8 @@ const postPoke = async (req, res) => {
       !defense ||
       !speed ||
       !height ||
-      !weight
+      !weight ||
+      !types
     ) {
       return res.status(400).json({ message: "Missing data" });
     }

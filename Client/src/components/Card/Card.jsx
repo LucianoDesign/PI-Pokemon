@@ -5,6 +5,7 @@ import styles from "./Card.module.css";
 const Card = (props) => {
   const { id, name, image, type } = props;
   
+ 
 
   return (
     <Link to={`detail/${id}`} className="Link">
@@ -19,6 +20,7 @@ const Card = (props) => {
             ))}
         </ul>
       </div>
+        {id.length > 10 ? <button className={styles.deleteCreated}>delete</button> : null}
     </div>
     </Link>
   );

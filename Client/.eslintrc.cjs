@@ -13,6 +13,7 @@ module.exports = {
   rules: {
     'react-refresh/only-export-components': 'warn',
     'no-console': 'warn',
-    'no-case-declarations': 'off'
+    'no-case-declarations': 'off',
+    'react/prop-types': 'off'
   },
 }

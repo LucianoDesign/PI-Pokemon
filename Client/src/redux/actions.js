@@ -72,7 +72,7 @@ export const loadPokemonTypes = () => {
 export const loadPokemonName = (name) => {
 
   const formattedName = name.toLowerCase().trim();
-  console.log(name)
+
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`?name=${formattedName}`);

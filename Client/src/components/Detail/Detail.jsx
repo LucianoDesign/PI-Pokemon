@@ -44,16 +44,16 @@ const Detail = () => {
         <h1>{pokemon.name}</h1>
         {/* Resto de los datos del Pokémon */}
         <p>HP: {pokemon.hp}</p>
-        <StatBar statValue={pokemon.hp} maxValue={255} />
+        <StatBar statValue={pokemon.hp} maxValue={255} barColors={["#ff0000", "#ff9999"]} />
 
         <p>Speed: {pokemon.speed}</p>
-        <StatBar statValue={pokemon.speed} maxValue={180} />
+        <StatBar statValue={pokemon.speed} maxValue={180} barColors={["#ffff00", "#ffff99"]} />
 
         <p>Attack: {pokemon.attack}</p>
-        <StatBar statValue={pokemon.attack} maxValue={190} />
+        <StatBar statValue={pokemon.attack} maxValue={190} barColors={["#00ff00", "#99ff99"]} />
 
         <p>Defense: {pokemon.defense}</p>
-        <StatBar statValue={pokemon.defense} maxValue={250} />
+        <StatBar statValue={pokemon.defense} maxValue={250} barColors={["#0000ff", "#9999ff"]}/>
 
         <p>Height: {pokemon.height}</p>
         <p>Weight: {pokemon.weight}</p>

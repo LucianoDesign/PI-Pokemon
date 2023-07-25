@@ -103,9 +103,9 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     /* If some field is empty returns a window alert */
-    const hasType1 = pokemonData.types[0] === "";
-    const hasType2 = pokemonData.types[1] === "";
-    if (hasType1 || hasType2) {
+    const hasType1 = pokemonData.types[0] === "" || pokemonData.types[0] === undefined;
+    const hasType2 = pokemonData.types[1] === "" || pokemonData.types[1] === undefined;
+    if (hasType1 && hasType2) {
       window.alert("Please select at least one Pokémon type.");
       return;
     }
@@ -260,19 +260,19 @@ const Form = () => {
         </div>
           <div className={styles.statDiv}>
             <img src={heart2} alt="hp" className={styles.iconStat} />
-            <StatBar statValue={pokemonData.hp} maxValue={255} />
+            <StatBar statValue={pokemonData.hp} maxValue={255} barColors={["#ff0000", "#ff9999"]} />
           </div>
           <div className={styles.statDiv}>
             <img src={sword2} alt="attack" className={styles.iconStat} />
-            <StatBar statValue={pokemonData.attack} maxValue={200} />
+            <StatBar statValue={pokemonData.attack} maxValue={200} barColors={["#00ff00", "#99ff99"]}/>
           </div>
           <div className={styles.statDiv}>
             <img src={shield2} alt="defense" className={styles.iconStat} />
-            <StatBar statValue={pokemonData.defense} maxValue={250} />
+            <StatBar statValue={pokemonData.defense} maxValue={250} barColors={["#0000ff", "#9999ff"]}/>
           </div>
           <div className={styles.statDiv}>
             <img src={thunder2} alt="attack" className={styles.iconStat} />
-            <StatBar statValue={pokemonData.speed} maxValue={190} />
+            <StatBar statValue={pokemonData.speed} maxValue={190} barColors={["#ffff00", "#ffff99"]}/>
           </div>
 
           <button

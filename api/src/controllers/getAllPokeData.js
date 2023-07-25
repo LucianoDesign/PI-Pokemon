@@ -6,7 +6,7 @@ const URL = "https://pokeapi.co/api/v2/pokemon/";
 
 const getAllPokeData = async (_, res) => {
   try {
-    const { data } = await axios(`${URL}?limit=151`);
+    const { data } = await axios(`${URL}?limit=30`);
 
     const pokemonList = data?.results;
 

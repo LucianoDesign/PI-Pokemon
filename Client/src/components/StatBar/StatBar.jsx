@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import styles from "./StatBar.module.css";
 
-const StatBar = ({ statValue, maxValue }) => {
+const StatBar = ({ statValue, maxValue, barColors }) => {
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const StatBar = ({ statValue, maxValue }) => {
 
   return (
     <div className={styles.statBar}>
-      <div className={styles.progressBar} style={{ width: `${width}%` }}></div>
+      <div className={styles.progressBar} style={{ width: `${width}%`, backgroundImage: `linear-gradient(to right, ${barColors.join(", ")})` }}></div>
     </div>
   );
 };
