@@ -1,5 +1,5 @@
 import { useSelector} from "react-redux";
-import styles from "./renderPokemons.module.css"
+import styles from "./RenderPokemons.module.css"
 
 import Card from "../Card/Card";
 
