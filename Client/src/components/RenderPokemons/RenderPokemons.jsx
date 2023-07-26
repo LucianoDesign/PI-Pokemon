@@ -21,7 +21,7 @@ const RenderPokemons = () => {
       return pokemonByName;
     } else if (filteredPokemons.length > 0) {
       return filteredPokemons;
-    } else if (selectedTypes.length > 0 && filteredPokemons.length === 0 || selectedCreated) {
+    } else if (selectedTypes.length > 0 && filteredPokemons.length === 0 || selectedCreated ==="created") {
       return null; 
     } else {
       return pokemons;

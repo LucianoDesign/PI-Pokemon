@@ -30,7 +30,7 @@ const FilterByType = () => {
   }, [dispatch, selectedTypes, shouldResetFiltered]);
 
   useEffect(()=>{
-    if(selectedCreated) {
+    if(selectedCreated === "created") {
       setIsCreatedChecked(true)
     }
   },[selectedCreated])
