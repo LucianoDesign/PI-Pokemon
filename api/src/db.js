@@ -16,7 +16,7 @@ const sequelize = new Sequelize(
          ssl: {
            require: true,
          },
-       }, // lets Sequelize know we can use pg-native for ~30% more speed
+       }, // lets Sequelize know we can use pg-native for ~30% more Speed
    }
 );
 const basename = path.basename(__filename);
