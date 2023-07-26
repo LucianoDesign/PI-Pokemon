@@ -41,7 +41,7 @@ export default function Nav() {
             location.pathname === PathRoutes.LANDING ? styles.activeLink : ""
           }
         >
-          Back
+          Landing
         </Link>
       </div>
       {/* <div className={styles.reactPlayer}>

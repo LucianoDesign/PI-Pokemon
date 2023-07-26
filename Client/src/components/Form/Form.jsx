@@ -57,7 +57,7 @@ const Form = () => {
       }
       setImageUrl(value);
     }
-    // Define an object to map properties to validation functions
+
     const propertyValidationMap = {
       hp: validateStats,
       attack: validateStats,
@@ -67,7 +67,6 @@ const Form = () => {
       weight: validateStats,
     };
 
-    // Check if the property exists in the validation map and update errors accordingly
     if (property in propertyValidationMap) {
       setErrors({
         ...errors,
@@ -82,7 +81,7 @@ const Form = () => {
     /* Obtain types */
     const [type1, type2] = pokemonData.types;
 
-    // update types based on type value
+    /* update types based on type value */
     let updatedTypes;
     if (name === "type1") {
       updatedTypes = [value, type2];
@@ -99,24 +98,27 @@ const Form = () => {
       }));
     }
   };
-
+  const hasErrors = Object.values(errors).some((error) => error !== "");
+  const emptyField = Object.values(pokemonData).some(
+    (data) => data === "" || data === 0
+  );
   const handleSubmit = (e) => {
     e.preventDefault();
     /* If some field is empty returns a window alert */
-    const hasType1 = pokemonData.types[0] === "" || pokemonData.types[0] === undefined;
-    const hasType2 = pokemonData.types[1] === "" || pokemonData.types[1] === undefined;
+    const hasType1 =
+      pokemonData.types[0] === "" || pokemonData.types[0] === undefined;
+    const hasType2 =
+      pokemonData.types[1] === "" || pokemonData.types[1] === undefined;
     if (hasType1 && hasType2) {
       window.alert("Please select at least one Pokémon type.");
       return;
     }
-    const emptyField = Object.values(pokemonData).some(
-      (data) => data === "" || data === 0
-    );
+
     if (emptyField) {
       window.alert("All fields must be completed");
       return;
     }
-    const hasErrors = Object.values(errors).some((error) => error !== "");
+
     if (hasErrors) {
       window.alert("Wrong data, try again");
       return;
@@ -137,7 +139,11 @@ const Form = () => {
         </div>
 
         <div className={styles.FormBox}>
-          <form onSubmit={handleSubmit} id="pokemonForm" className={styles.pokemonForm}>
+          <form
+            onSubmit={handleSubmit}
+            id="pokemonForm"
+            className={styles.pokemonForm}
+          >
             <div>
               <label htmlFor="name">Name:</label>
               <input
@@ -255,34 +261,50 @@ const Form = () => {
           </form>
         </div>
         <div className={styles.statsDivContainer}>
-        <div className={styles.uploadedImg}>
-          {imageUrl && <img src={imageUrl} alt="Pokemon" />}
-        </div>
+          <div className={styles.uploadedImg}>
+            {imageUrl && <img src={imageUrl} alt="Pokemon" />}
+          </div>
           <div className={styles.statDiv}>
             <img src={heart2} alt="hp" className={styles.iconStat} />
-            <StatBar statValue={pokemonData.hp} maxValue={255} barColors={["#ff0000", "#ff9999"]} />
+            <StatBar
+              statValue={pokemonData.hp}
+              maxValue={255}
+              barColors={["#ff0000", "#ff9999"]}
+            />
           </div>
           <div className={styles.statDiv}>
             <img src={sword2} alt="attack" className={styles.iconStat} />
-            <StatBar statValue={pokemonData.attack} maxValue={200} barColors={["#00ff00", "#99ff99"]}/>
+            <StatBar
+              statValue={pokemonData.attack}
+              maxValue={200}
+              barColors={["#00ff00", "#99ff99"]}
+            />
           </div>
           <div className={styles.statDiv}>
             <img src={shield2} alt="defense" className={styles.iconStat} />
-            <StatBar statValue={pokemonData.defense} maxValue={250} barColors={["#0000ff", "#9999ff"]}/>
+            <StatBar
+              statValue={pokemonData.defense}
+              maxValue={250}
+              barColors={["#0000ff", "#9999ff"]}
+            />
           </div>
           <div className={styles.statDiv}>
             <img src={thunder2} alt="attack" className={styles.iconStat} />
-            <StatBar statValue={pokemonData.speed} maxValue={190} barColors={["#ffff00", "#ffff99"]}/>
+            <StatBar
+              statValue={pokemonData.speed}
+              maxValue={190}
+              barColors={["#ffff00", "#ffff99"]}
+            />
           </div>
 
           <button
             className={styles.submitButton}
             type="submit"
             form="pokemonForm"
+            disabled={hasErrors || emptyField}
           >
             Create Pokemon
           </button>
-        
         </div>
       </div>
     </div>

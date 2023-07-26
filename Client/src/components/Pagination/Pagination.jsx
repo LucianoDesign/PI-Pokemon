@@ -24,12 +24,12 @@ const Pagination = () => {
     );
   }
 
-  // Mostrar solo 5 botones de página al mismo tiempo
+
   const maxButtonsToShow = 5;
   let startPage = Math.max(1, currentPage - Math.floor(maxButtonsToShow / 2));
   let endPage = Math.min(totalPages, startPage + maxButtonsToShow - 1);
 
-  // Ajustar el rango si estamos cerca del principio o final
+ 
   if (endPage - startPage + 1 < maxButtonsToShow) {
     startPage = Math.max(1, endPage - maxButtonsToShow + 1);
   }

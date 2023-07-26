@@ -10,6 +10,8 @@ import {
   UPDATE_SELECTED_TYPES,
   POST_POKEMON,
   FILTER_CREATED_POKEMONS,
+  UPDATE_SELECTED_CREATED,
+  DELETE_CREATED_POKEMON,
 } from "./actionTypes";
 
 const initialState = {
@@ -22,6 +24,7 @@ const initialState = {
   sortOrder: "",
   types: [],
   selectedTypes: [],
+  selectedCreated: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -213,7 +216,28 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         selectedTypes: action.payload,
       };
-
+    case UPDATE_SELECTED_CREATED:
+      return {
+        ...state,
+        selectedCreated: action.payload,
+      };
+    case DELETE_CREATED_POKEMON:
+      const deletedPokemonId = action.payload;
+      const updatedPokemons = state.pokemons.filter(
+        (pokemon) => pokemon.id !== deletedPokemonId
+      );
+      const updateFilteredPokemons = state.filteredPokemons.filter(
+        (pokemon) => pokemon.id !== deletedPokemonId
+      );
+      const updatePokemonByName = state.pokemonByName.filter(
+        (pokemon) => pokemon.id !== deletedPokemonId
+      );
+      return {
+        ...state,
+        pokemons: updatedPokemons,
+        filteredPokemons: updateFilteredPokemons,
+        pokemonByName: updatePokemonByName,
+      };
     default:
       return state;
   }

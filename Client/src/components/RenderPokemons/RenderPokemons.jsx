@@ -10,6 +10,7 @@ const RenderPokemons = () => {
   const currentPage = useSelector((state) => state.currentPage);
   const pokemonsPerPage = useSelector((state) => state.pokemonsPerPage);
   const selectedTypes = useSelector((state) => state.selectedTypes);
+  const selectedCreated = useSelector((state) => state.selectedCreated);
   
 
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
@@ -20,8 +21,8 @@ const RenderPokemons = () => {
       return pokemonByName;
     } else if (filteredPokemons.length > 0) {
       return filteredPokemons;
-    } else if (selectedTypes.length > 0 && filteredPokemons.length === 0) {
-      return null; // No hay pokemones filtrados
+    } else if (selectedTypes.length > 0 && filteredPokemons.length === 0 || selectedCreated) {
+      return null; 
     } else {
       return pokemons;
     }

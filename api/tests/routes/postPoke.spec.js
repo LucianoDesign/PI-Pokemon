@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../../src/app'); 
-const { Pokemon, Type } = require('../../src/db.js');
+const { Pokemon } = require('../../src/db.js');
 
 describe('POST /pokemon/pokemons', () => {
   let pokemon;

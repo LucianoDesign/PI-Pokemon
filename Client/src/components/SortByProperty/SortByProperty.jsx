@@ -10,17 +10,19 @@ const SortButton = ({ title, active, onClick, icon, iconActive }) => (
     className={active ? styles.statButtonOn : styles.statButton}
     onClick={onClick}
   >
-    {active ? (
-      <div>
-        <img src={iconActive} alt={title} className={styles.iconStat} />
-        {"↑"}
-      </div>
-    ) : (
-      <div>
-        <img src={icon} alt={title} className={styles.iconStat} />
-        {"↓"}
-      </div>
-    )}
+    <div className={styles.buttonArrow}>
+      {active ? (
+        <>
+          <img src={iconActive} alt={title} className={styles.iconStat} />
+          {"↑"}
+        </>
+      ) : (
+        <>
+          <img src={icon} alt={title} className={styles.iconStat} />
+          {"↓"}
+        </>
+      )}
+    </div>
   </button>
 );
 
@@ -35,6 +37,7 @@ const SortByProperty = () => {
   };
 
   const handlePropertySort = (key) => {
+
     const newButtons = sortingButtons.map((button) => ({
       ...button,
       active: button.key === key ? !button.active : false,

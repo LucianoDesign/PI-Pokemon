@@ -40,4 +40,7 @@ export const stats = [
       iconActive: heart2,
       active: false,
     },
+    
   ]
+
+  

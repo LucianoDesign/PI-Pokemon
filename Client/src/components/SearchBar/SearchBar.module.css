@@ -6,7 +6,7 @@
 .searchBox {
   position: fixed;
   top: -3.5%;
-  right: 33%;
+  right: 10%;
   transform: translate(-10%, 50%);
   background: linear-gradient(
     to bottom,
@@ -63,19 +63,14 @@
   border-radius: 20px;
   font-family: "PixelFont";
 }
-@media screen and (max-width: 1024px) {
-    .searchBox {
-        right: 18% ;
-      }
-  
-}
+
 @media screen and (max-width: 768px) {
   .searchBox {
-    right: 20%;
+    right: 5%;
   }
   
   .searchBox.active > .searchInput {
-    width: 205px;
+    width: 230px;
     padding: 0 6px;
   }
 }

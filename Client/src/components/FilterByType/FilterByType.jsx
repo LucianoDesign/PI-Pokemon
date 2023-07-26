@@ -5,6 +5,7 @@ import {
   filterCreatedPokemons,
   resetFilteredPokemons,
   updateSelectedTypes,
+  updateSelectedCreated,
 } from "../../redux/actions";
 import styles from "./FilterByType.module.css";
 
@@ -13,6 +14,7 @@ const FilterByType = () => {
   const pokemonTypes = useSelector((state) => state.types);
   const pokemonByName = useSelector((state) => state.pokemonByName);
   const selectedTypes = useSelector((state) => state.selectedTypes);
+  const selectedCreated = useSelector((state) => state.selectedCreated);
   const [isCreatedChecked, setIsCreatedChecked] = useState(false);
   const [shouldResetFiltered, setShouldResetFiltered] = useState(false);
   
@@ -27,12 +29,11 @@ const FilterByType = () => {
     }
   }, [dispatch, selectedTypes, shouldResetFiltered]);
 
-  /* useEffect(() => {
-    if (!isCreatedChecked) {
-      // Aquí reseteas el filtro cuando isCreatedChecked se desmarca
-      dispatch(resetFilteredPokemons());
+  useEffect(()=>{
+    if(selectedCreated) {
+      setIsCreatedChecked(true)
     }
-  }, [isCreatedChecked, dispatch]); */
+  },[selectedCreated])
 
   const handleTypeChange = (e) => {
     const { value, checked } = e.target;
@@ -48,10 +49,13 @@ const FilterByType = () => {
     setShouldResetFiltered(!checked);
   };
   const handleCreatedChange = (e) => {
+    const {value } = e.target
     setIsCreatedChecked(e.target.checked);
     if (e.target.checked) {
       dispatch(filterCreatedPokemons());
+      dispatch(updateSelectedCreated(value))
     } else{
+      dispatch(updateSelectedCreated(null))
       dispatch(resetFilteredPokemons());
     }
   };
@@ -65,8 +69,8 @@ const FilterByType = () => {
             className={styles.filterInputs}
             type="checkbox"
             value="created"
-            checked={isCreatedChecked} // Use the state here
-            onChange={handleCreatedChange} // Call the handler on change
+            checked={isCreatedChecked} 
+            onChange={handleCreatedChange} 
           />
           *created*
         </label>

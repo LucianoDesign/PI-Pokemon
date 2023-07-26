@@ -39,7 +39,7 @@ const postPoke = async (req, res) => {
       return res.status(409).json({ message: "Pokemon already exists" });
     }
 
-    // Asociar los tipos al Pokémon creado
+    /* Associate Pokemon with types */
     const typesToAssociate = await Type.findAll({ where: { name: types } });
     await createdPokemon.setTypes(typesToAssociate);
 

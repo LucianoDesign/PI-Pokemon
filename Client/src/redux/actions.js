@@ -12,8 +12,9 @@ import {
   UPDATE_SELECTED_TYPES,
   POST_POKEMON,
   FILTER_CREATED_POKEMONS,
+  UPDATE_SELECTED_CREATED,
+  DELETE_CREATED_POKEMON,
 } from "./actionTypes";
-
 
 export const loadPokemons = () => {
   return async (dispatch) => {
@@ -30,7 +31,6 @@ export const loadPokemons = () => {
 };
 
 export const postPokemon = (pokemonData) => {
-
   return async (dispatch) => {
     try {
       const { data } = await axios.post("/pokemons", pokemonData);
@@ -41,12 +41,13 @@ export const postPokemon = (pokemonData) => {
       if (data) {
         window.alert("Pokemon created");
       }
-      
     } catch (error) {
       if (error.response) {
         console.log("Error status:", error.response.status);
         console.log("Error data:", error.response.data);
-        window.alert(error.response.data.message || "check url length from image field")
+        window.alert(
+          error.response.data.message || "check url length from image field"
+        );
       } else if (error.request) {
         console.log("Error request:", error.request);
       } else {
@@ -70,7 +71,6 @@ export const loadPokemonTypes = () => {
   };
 };
 export const loadPokemonName = (name) => {
-
   const formattedName = name.toLowerCase().trim();
 
   return async (dispatch) => {
@@ -83,10 +83,8 @@ export const loadPokemonName = (name) => {
       });
     } catch (error) {
       if (error.response && error.response.status === 404) {
-       
         alert("Pokemon not found. Please try again with a different name.");
       } else {
-
         alert("An error occurred. Please try again later.");
       }
     }
@@ -116,7 +114,7 @@ export const filterPokemonsByType = (selectedTypes) => ({
 
 export const filterCreatedPokemons = () => ({
   type: FILTER_CREATED_POKEMONS,
-})
+});
 
 export const resetFilteredPokemons = () => ({
   type: RESET_FILTERED_POKEMONS,
@@ -126,5 +124,23 @@ export const updateSelectedTypes = (selectedTypes) => {
   return {
     type: UPDATE_SELECTED_TYPES,
     payload: selectedTypes,
+  };
+};
+export const updateSelectedCreated = (selectedCreated) => ({
+  type: UPDATE_SELECTED_CREATED,
+  payload: selectedCreated,
+});
+
+export const deleteCreatedPokemon = (id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.delete(`/${id}`);
+      return dispatch({
+        type: DELETE_CREATED_POKEMON,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
