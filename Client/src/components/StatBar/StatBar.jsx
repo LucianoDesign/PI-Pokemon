@@ -14,7 +14,13 @@ const StatBar = ({ statValue, maxValue, barColors }) => {
 
   return (
     <div className={styles.statBar}>
-      <div className={styles.progressBar} style={{ width: `${width}%`, backgroundImage: `linear-gradient(to right, ${barColors.join(", ")})` }}></div>
+      <div
+        className={styles.progressBar}
+        style={{
+          width: `${width}%`,
+          backgroundImage: `linear-gradient(to right, ${barColors.join(", ")})`,
+        }}
+      ></div>
     </div>
   );
 };

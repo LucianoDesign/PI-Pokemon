@@ -31,15 +31,16 @@ const RenderPokemons = () => {
   if (!displayedPokemons) {
     return <h1 className={styles.noMatch}>No match for pokemons</h1>;
   }
-
+  
   const paginatedPokemons = displayedPokemons.slice(
     indexOfFirstPokemon,
     indexOfLastPokemon
-  );
-
-  return paginatedPokemons.map((pokemon) => (
+    );
+  
+  return paginatedPokemons.map((pokemon, index) => (
+    
     <Card
-      key={pokemon.id}
+      key={`${pokemon.id}-${index}`}
       id={pokemon.id}
       name={pokemon.name}
       image={pokemon.image}

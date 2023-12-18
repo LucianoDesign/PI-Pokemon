@@ -27,6 +27,19 @@
   position: relative;
   
 }
+.landingBackground{
+  display: flex;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 80%;
+}
+
+.landingParagraph{
+  
+  margin: 0 30px 0 30px;
+  padding: 20px
+  
+}
 
 .logo {
   width: 35vw ;
@@ -39,6 +52,11 @@
   .logo {
     width: 50vw; 
     margin-bottom: 200px;
+  }
+  .landingParagraph{
+  
+    font-size: 12px;
+    
   }
 }
 

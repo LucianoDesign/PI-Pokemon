@@ -160,6 +160,7 @@ const Form = () => {
                 id="image"
                 name="image"
                 value={pokemonData.image}
+                placeholder="insert Url..."
                 onChange={handleChange}
               />
               {errors.image && <p className="error">{errors.image}</p>}

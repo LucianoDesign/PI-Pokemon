@@ -34,7 +34,7 @@ const rootReducer = (state = initialState, action) => {
       const totalPages = Math.ceil(pokemons.length / state.pokemonsPerPage);
       return {
         ...state,
-        pokemons: pokemons,
+        pokemons,
         totalPages,
       };
     case LOAD_TYPES:

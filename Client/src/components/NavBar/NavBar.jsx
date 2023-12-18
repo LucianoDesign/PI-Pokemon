@@ -1,17 +1,17 @@
-/* import { useState } from "react"; */
+import { useState } from "react";
 import styles from "./NavBar.module.css";
 import PathRoutes from "../../helpers/Routes.helper";
-/* import ReactPlayer from "react-player/youtube"; */
+import ReactPlayer from "react-player/youtube";
 
 import { Link, useLocation } from "react-router-dom";
 
 export default function Nav() {
   const location = useLocation();
-  /* const [isPlaying, setIsPlaying] = useState(true); */
+  const [isPlaying, setIsPlaying] = useState(true);
 
- /*  const handleTogglePlay = () => {
+  const handleTogglePlay = () => {
     setIsPlaying(!isPlaying);
-  }; */
+  };
 
   if (location.pathname === "/") {
     return null; // No renderizar el componente NavBar
@@ -44,7 +44,7 @@ export default function Nav() {
           Landing
         </Link>
       </div>
-      {/* <div className={styles.reactPlayer}>
+      <div className={styles.reactPlayer}>
         <ReactPlayer
           url={[
             "https://www.youtube.com/watch?v=fEhPACdfPKk",
@@ -61,7 +61,7 @@ export default function Nav() {
         <button onClick={handleTogglePlay}>
           {isPlaying ? "Pausar" : "Reanudar"} Sonido
         </button>
-      </div> */}
+      </div>
     </div>
   );
 }
